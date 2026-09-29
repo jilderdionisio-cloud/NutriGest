@@ -5,8 +5,8 @@ GestNutri es una aplicación web para profesionales de nutrición. Esta rama pre
 ## Requisitos en Windows
 
 - Git.
-- Node.js 24 LTS o posterior, con npm.
-- Python 3.13 o posterior.
+- Node.js 20.19 o posterior, con npm.
+- Python 3.13 o posterior disponible como `python`.
 - PostgreSQL 16 o posterior, con `psql` disponible en `PATH`.
 
 ## 1. Crear la base de datos PostgreSQL
@@ -30,7 +30,7 @@ Desde la raíz del repositorio, crea el entorno y la configuración:
 
 ```powershell
 Copy-Item backend\.env.example backend\.env
-py -3.13 -m venv backend\.venv
+python -m venv backend\.venv
 backend\.venv\Scripts\python.exe -m pip install --upgrade pip
 backend\.venv\Scripts\python.exe -m pip install -r backend\requirements.txt
 ```
@@ -46,6 +46,16 @@ Set-Location backend
 ```
 
 Edita `backend\.env` para que `POSTGRES_PASSWORD` coincida con la contraseña local elegida. `backend\.env` está ignorado por Git: no debe versionarse. La API queda en `http://localhost:8000/api/`.
+
+Para ejecutar la suite sin instalar PostgreSQL (por ejemplo, en una revisión local), usa SQLite solo para ese proceso:
+
+```powershell
+$env:DJANGO_TEST_USE_SQLITE = "true"
+.\.venv\Scripts\python.exe manage.py test
+Remove-Item Env:DJANGO_TEST_USE_SQLITE
+```
+
+No uses esa variable al iniciar el servidor habitual: el entorno de desarrollo de GestNutri usa PostgreSQL.
 
 ## 3. Configurar y arrancar el frontend
 
@@ -71,3 +81,9 @@ Con backend y frontend en ejecución:
 ## Alcance actual
 
 La base incluye autenticación por token y API de pacientes. Consultas, mediciones, evolución, WhatsApp e IA de notas no se implementan en esta rama. El contrato existente se documenta en [docs/contrato-api.md](docs/contrato-api.md).
+
+## Agente orquestador
+
+El agente de coordinación está definido en [`.codex/agents/orquestador.toml`](.codex/agents/orquestador.toml). En una conversación de Codex desde la raíz del proyecto, solicítale: `Invoca al agente orquestador para revisar las ramas y Pull Requests de GestNutri.` Su función es de solo lectura: contrasta el plan, el estado del repositorio y los contratos, y separa hechos comprobados de pendientes. No sustituye el flujo de Pull Request ni opera GitHub.
+
+La función de IA para formalizar notas del producto es una historia posterior y es independiente del agente orquestador; no se necesita ninguna credencial de IA para arrancar esta base.
