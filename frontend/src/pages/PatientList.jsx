@@ -1,9 +1,5 @@
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { api } from "../api";
-
-export default function PatientList() {
-  const [patients, setPatients] = useState([]); const [loading, setLoading] = useState(true); const [error, setError] = useState("");
-  useEffect(() => { api("/patients/").then(setPatients).catch(err => setError(err.message)).finally(() => setLoading(false)); }, []);
-  return <section><h1>Pacientes</h1>{loading && <p>Cargando pacientes…</p>}{error && <p className="error">Error: {error}</p>}{!loading && !error && (patients.length ? <ul className="patient-list">{patients.map(patient => <li key={patient.id}><Link to={`/patients/${patient.id}`}>{patient.first_name} {patient.last_name}</Link><span>{patient.email || "Sin correo"}</span></li>)}</ul> : <p>Aún no hay pacientes registrados.</p>)}</section>;
-}
+import { Search, UserRoundPlus } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { api } from '../api'
+export default function PatientList() { const [patients, setPatients] = useState([]); const [loading, setLoading] = useState(true); const [error, setError] = useState(''); const [query, setQuery] = useState(''); useEffect(() => { api('/patients/').then((data) => setPatients(Array.isArray(data) ? data : data.results || [])).catch((err) => setError(err.message)).finally(() => setLoading(false)) }, []); const visible = useMemo(() => patients.filter((p) => `${p.first_name || ''} ${p.last_name || ''} ${p.email || ''}`.toLowerCase().includes(query.toLowerCase())), [patients, query]); return <section className="content-panel"><header className="page-header"><div><p className="eyebrow">NutriGest / Pacientes</p><h1>Pacientes</h1><p>Consulta la información y seguimiento nutricional de tu cartera.</p></div><button className="secondary-action" type="button" title="El registro depende del endpoint del backend"><UserRoundPlus size={18} />Nuevo paciente</button></header><label className="search"><Search size={18} /><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Buscar por nombre o correo" /></label>{loading && <p className="status">Cargando pacientes…</p>}{error && <p className="form-error">Error: {error}</p>}{!loading && !error && (visible.length ? <div className="patient-grid">{visible.map((p) => <Link className="patient-card" key={p.id} to={`/patients/${p.id}`}><span className="avatar">{`${p.first_name?.[0] || ''}${p.last_name?.[0] || ''}` || 'P'}</span><span><strong>{p.first_name} {p.last_name}</strong><small>{p.email || 'Sin correo registrado'}</small><small>{p.phone || 'Sin teléfono registrado'}</small></span><span aria-hidden="true">→</span></Link>)}</div> : <div className="empty-state"><h2>Aún no hay pacientes registrados</h2><p>Los pacientes aparecerán aquí cuando se registren en NutriGest.</p></div>)}</section> }

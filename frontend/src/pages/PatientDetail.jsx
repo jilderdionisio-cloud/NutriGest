@@ -1,11 +1,6 @@
-import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { api } from "../api";
-
-export default function PatientDetail() {
-  const { id } = useParams(); const [patient, setPatient] = useState(null); const [error, setError] = useState("");
-  useEffect(() => { api(`/patients/${id}/`).then(setPatient).catch(err => setError(err.message)); }, [id]);
-  if (error) return <p className="error">Error: {error}</p>;
-  if (!patient) return <p>Cargando paciente…</p>;
-  return <section><Link to="/patients">← Pacientes</Link><h1>{patient.first_name} {patient.last_name}</h1><dl><dt>Correo</dt><dd>{patient.email || "No registrado"}</dd><dt>Teléfono</dt><dd>{patient.phone || "No registrado"}</dd><dt>Fecha de nacimiento</dt><dd>{patient.birth_date || "No registrada"}</dd><dt>Notas</dt><dd>{patient.notes || "Sin notas"}</dd></dl></section>;
-}
+import { ArrowLeft, CalendarDays, ClipboardList, Mail, Phone } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { api } from '../api'
+const value = (item, fallback = 'No registrado') => item || fallback
+export default function PatientDetail() { const { id } = useParams(); const [patient, setPatient] = useState(null); const [error, setError] = useState(''); useEffect(() => { api(`/patients/${id}/`).then(setPatient).catch((err) => setError(err.message)) }, [id]); if (error) return <section className="content-panel"><p className="form-error">Error: {error}</p><Link to="/patients">Volver a pacientes</Link></section>; if (!patient) return <section className="content-panel"><p className="status">Cargando expediente…</p></section>; return <section className="content-panel"><Link className="back-link" to="/patients"><ArrowLeft size={17} />Pacientes</Link><header className="patient-hero"><span className="avatar avatar-large">{`${patient.first_name?.[0] || ''}${patient.last_name?.[0] || ''}` || 'P'}</span><div><p className="eyebrow">Expediente nutricional</p><h1>{patient.first_name} {patient.last_name}</h1><p>{value(patient.birth_date, 'Fecha de nacimiento no registrada')}</p></div></header><div className="details-grid"><article><h2>Datos de contacto</h2><p><Mail size={17} />{value(patient.email)}</p><p><Phone size={17} />{value(patient.phone)}</p></article><article><h2>Notas de atención</h2><p>{value(patient.notes, 'Sin notas clínicas registradas.')}</p></article></div><div className="tracking-grid"><Link to="/appointments"><CalendarDays size={22} /><span><strong>Citas</strong><small>Agenda de valoración y seguimiento</small></span></Link><Link to="/consultations"><ClipboardList size={22} /><span><strong>Consultas e historial</strong><small>Notas y evolución nutricional</small></span></Link></div></section> }
