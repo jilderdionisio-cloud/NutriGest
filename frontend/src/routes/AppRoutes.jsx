@@ -1,0 +1,23 @@
+import { Navigate, Route, Routes } from 'react-router-dom'
+import ProfessionalRoute from './ProfessionalRoute'
+import HomePage from '../modules/home/pages/HomePage'
+import ClinicInfoPage from '../modules/publicSite/nosotros/pages/ClinicInfoPage'
+import ContactPage from '../modules/publicSite/nosotros/pages/ContactPage'
+import LoginPage from '../modules/auth/pages/LoginPage'
+import RegisterPage from '../modules/auth/pages/RegisterPage'
+import ForgotPasswordPage from '../modules/auth/pages/ForgotPasswordPage'
+import ResetPasswordPage from '../modules/auth/pages/ResetPasswordPage'
+import UserDashboard from '../modules/dashboardClient/pages/UserDashboard'
+import NutritionPatientsPage from '../modules/dashboardClient/pages/NutritionPatientsPage'
+import PatientRecordPage from '../modules/dashboardClient/pages/PatientRecordPage'
+import ConsultationPage from '../modules/dashboardClient/pages/ConsultationPage'
+import FollowUpPage from '../modules/dashboardClient/pages/FollowUpPage'
+import ContactRequestsPage from '../modules/dashboardClient/pages/ContactRequestsPage'
+import ContactRequestDetailPage from '../modules/dashboardClient/pages/ContactRequestDetailPage'
+import PatientFormPage from '../modules/dashboardClient/pages/PatientFormPage'
+import EvolutionPage from '../modules/dashboardClient/pages/EvolutionPage'
+import ProfileSettingsPage from '../modules/dashboardClient/pages/ProfileSettingsPage'
+import ConsultationDetailPage from '../modules/dashboardClient/pages/ConsultationDetailPage'
+
+const professional=(element)=><ProfessionalRoute>{element}</ProfessionalRoute>
+export default function AppRoutes(){return <Routes><Route path="/" element={<HomePage/>}/><Route path="/nosotros" element={<ClinicInfoPage/>}/><Route path="/contacto" element={<ContactPage/>}/><Route path="/login" element={<LoginPage/>}/><Route path="/registro" element={<RegisterPage/>}/><Route path="/recuperar-contrasena" element={<ForgotPasswordPage/>}/><Route path="/restablecer-contrasena" element={<ResetPasswordPage/>}/><Route path="/register" element={<Navigate to="/registro" replace/>}/><Route path="/forgot-password" element={<Navigate to="/recuperar-contrasena" replace/>}/><Route path="/dashboard" element={professional(<UserDashboard/>)}/><Route path="/dashboard/perfil" element={professional(<ProfileSettingsPage/>)}/><Route path="/dashboard/pacientes" element={professional(<NutritionPatientsPage/>)}/><Route path="/dashboard/pacientes/nuevo" element={professional(<PatientFormPage/>)}/><Route path="/dashboard/pacientes/:id" element={professional(<PatientRecordPage/>)}/><Route path="/dashboard/pacientes/:id/editar" element={professional(<PatientFormPage/>)}/><Route path="/dashboard/pacientes/:id/consultas/nueva" element={professional(<ConsultationPage/>)}/><Route path="/dashboard/pacientes/:id/consultas/:consultationId" element={professional(<ConsultationDetailPage/>)}/><Route path="/dashboard/pacientes/:id/consultas/:consultationId/editar" element={professional(<ConsultationPage/>)}/><Route path="/dashboard/pacientes/:id/evolucion" element={professional(<EvolutionPage/>)}/><Route path="/dashboard/seguimiento" element={professional(<FollowUpPage/>)}/><Route path="/dashboard/solicitudes-contacto" element={professional(<ContactRequestsPage/>)}/><Route path="/dashboard/solicitudes-contacto/:requestId" element={professional(<ContactRequestDetailPage/>)}/><Route path="*" element={<Navigate to="/" replace/>}/></Routes>}

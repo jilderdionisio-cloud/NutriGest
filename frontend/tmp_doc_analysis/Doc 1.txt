@@ -1,0 +1,463 @@
+UNIVERSIDAD TECNOLÓGICA METROPOLITANA
+Desarrollo de Software Multiplataforma
+Análisis y Diseño de Software
+Diagnóstico del proyecto NutriGest
+Documento 1Temas 1 a 3 de la Unidad I
+Gestión de información y seguimiento en un consultorio de nutrición
+Equipo
+Diana Gpe. Bojorquez Cetina
+Genny D. Navarrete Aguilar
+Jilder Alex Dionisio Rojas
+Luisa Fernanda Ortiz Baeza
+Versión 1.4
+Grupo  ____________________
+30 de septiembre de 2026
+Propósito del documento
+Este diagnóstico describe el problema de información del consultorio, los actores involucrados, el sistema actual y el proceso de seguimiento nutricional. Su propósito es fundamentar la investigación y los requerimientos posteriores mediante fuentes identificables, supuestos explícitos y preguntas pendientes.
+La entrevista consignada por el equipo describe el uso de Excel, Word y una agenda de celular. Las principales oportunidades de análisis se relacionan con la comparación de mediciones, la preparación de notas y la identificación de pacientes sin consulta reciente. La frecuencia de errores y el tiempo atribuible a estas tareas requieren comprobación.
+
+1 Identificación del proyecto
+Elemento
+Descripción
+Nombre provisional
+NutriGest. El plan de gestión utiliza GestNutri; ambos nombres se refieren al proyecto de seguimiento nutricional. La denominación final debe unificarse en los entregables.
+Institución y programa
+Universidad Tecnológica Metropolitana. Desarrollo de Software Multiplataforma.
+Asignatura
+Análisis y Diseño de Software. Unidad I, versión 2.
+Grupo
+____________________
+Destinataria del proyecto
+Nutrióloga titular de un consultorio de nutrición, identificada como cliente en el diagnóstico del equipo. Se utiliza su rol como referencia para evitar publicar datos personales innecesarios.
+Producto propuesto
+Aplicación web para centralizar expedientes y apoyar el seguimiento de pacientes. Las tecnologías no constituyen evidencia del problema.
+Versión y fecha
+Versión 1.4. Actualización del documento: 30 de septiembre de 2026.
+
+Integrante
+Responsabilidad inicial
+Diana Gpe. Bojorquez Cetina
+Datos y backend: modelos, migraciones y consistencia de la información.
+Genny D. Navarrete Aguilar
+Backend: API, permisos y lógica de negocio.
+Jilder Alex Dionisio Rojas
+Frontend: interfaz e integración con la API.
+Luisa Fernanda Ortiz Baeza
+Calidad y pruebas: casos de prueba e integración continua.
+
+El diagnóstico y su justificación son responsabilidad común. Las especialidades técnicas no limitan la participación de cada integrante en la investigación, revisión y defensa del proyecto.
+2 Encuadre del problema
+2 1 Descripción del problema
+La nutrióloga necesita relacionar la información clínica y alimentaria de cada paciente con sus mediciones y consultas anteriores para decidir el seguimiento. Según la entrevista registrada por el equipo, utiliza Excel para pacientes, mediciones y notas, Word para menús y la agenda del celular para citas. El planteamiento del cliente también señala tareas de comparación entre consultas, preparación de notas formales y revisión de pacientes que no regresan. Esta distribución obliga a consultar distintos registros y puede exigir recaptura o reconstrucción de información. Aún se debe comprobar cómo se ejecutan esas tareas y qué retrasos, duplicaciones o errores producen; el uso de herramientas distintas, por sí solo, no demuestra una falla del proceso.
+2 2 Evidencia disponible y límites de las fuentes
+Los identificadores conservan la referencia del diagnóstico anterior. Las declaraciones de la entrevista constituyen información reportada por el equipo; no equivalen a una observación directa del proceso. Los documentos internos describen planteamientos y decisiones del proyecto, pero no verifican por sí mismos la práctica del consultorio.
+ID
+Contenido y fuente
+Estado y límite
+E-01
+Comunicación del cliente recogida por el equipo. Solicita comparar grasa y músculo, formalizar notas, identificar pacientes que no regresan y explorar productos y etiquetas. Comunicación previa al 30/09/2026, por mensajes de chat, según SE-02 del dossier.
+Referencia indirecta en el diagnóstico. Falta vincular el registro original, medio y contexto. No demuestra frecuencia de fallas.
+E-02
+Informe de proyecto NutriGest mencionado en el diagnóstico anterior.
+Documento interno citado. Debe incorporarse la versión y ubicación verificable; no reemplaza evidencia del cliente.
+E-03
+Formatos actuales de registro y nota formal del consultorio.
+Pendiente de obtener y revisar mediante ejemplos sin datos identificables.
+E-04
+GestNutri_Plan_Gestion (2).pdf. Secciones 1, 5, 7, 12, 13 y 15: alcance, historias, arquitectura, pruebas y protección de información.
+Documento disponible. Respalda la planificación y el alcance propuesto, no la existencia de problemas operativos.
+E-05
+Entrevista consignada en el diagnóstico: Excel para pacientes, mediciones y notas; Word para menús; agenda del celular para citas. Sesión SE-01 del 30/09/2026, según el dossier.
+Declaración reportada. No acredita cómo se calculan las variaciones ni el formato final de notas.
+E-06
+Entrevista consignada: seguimiento semanal manual; si no hay respuesta, la nutrióloga espera. Considera que un paciente no regresó tras seis meses sin consulta. No reporta autorización formal ni aviso de privacidad. Sesión SE-01 del 30/09/2026, según el dossier.
+Declaración reportada. Falta precisar alcance, registro de autorizaciones y aplicación del criterio de seis meses.
+E-07
+Entrevista consignada: aproximadamente 10–12 pacientes al mes y unos 3 que dejan de regresar; actividad estacional. Sesión SE-01 del 30/09/2026, según el dossier.
+Estimación de la informante. No es una tasa de abandono validada ni una serie de registros comparables.
+E-08
+Entrevista consignada: primera consulta de aproximadamente una hora con cuarenta y cinco minutos a dos horas; historia clínica nutricia; captura y agenda a cargo de la nutrióloga sola. Sesión SE-01 del 30/09/2026, según el dossier.
+Declaración reportada. La duración corresponde a primera consulta; no mide el tiempo de seguimiento ni de recaptura.
+
+2 3 Preguntas de investigación
+Las preguntas resueltas parcialmente se conservan para mantener trazabilidad. Las preguntas abiertas orientan el contraste del sistema y del proceso actual.
+ID
+Pregunta
+Estado y comprobación
+P-01
+¿Cómo registra la nutrióloga los pacientes, las mediciones, las notas y las citas?
+Respondida por declaración: Excel, Word y agenda del celular, según E-05. Falta contrastar con registros.
+P-02
+¿Qué instrumentos utiliza la nutrióloga y cómo conserva sus resultados?
+El diagnóstico menciona bioimpedancia, Beurer, Omron HBF-514C y plicómetro, pero no identifica el registro de entrevista o fotografías que lo sustenta. Pendiente de referencia exacta.
+P-03
+¿Cuántos pacientes atiende la nutrióloga y en qué periodo identifica a quienes dejan de regresar?
+Estimación en E-07. Falta distinguir pacientes únicos, consultas, periodo y registros que la sustentan.
+P-04
+¿Cómo aplica la nutrióloga el criterio de seis meses sin consulta y cómo decide a quién contactar?
+Criterio declarado en E-06; faltan aplicación, excepciones y contraste con el seguimiento semanal.
+P-05
+¿Cómo se informa al paciente y se obtiene y conserva su autorización para mensajes?
+Parcial: E-06 no reporta registro formal. No permite concluir si existe autorización verbal u otro acuerdo.
+P-06
+¿Qué estructura tiene la nota formal y qué la distingue del menú o plan alimentario?
+Abierta. El equipo deberá solicitar E-03 y revisar con la nutrióloga el proceso de preparación de la nota formal.
+P-07
+¿Qué información se recoge en la primera consulta y cómo se diferencia del seguimiento?
+Primera consulta descrita en E-08. Falta delimitar qué datos se actualizan en consultas posteriores.
+P-08
+¿Quién corrige un dato, cómo lo corrige y qué constancia conserva?
+Abierta. El equipo deberá consultar un caso de corrección sin datos personales.
+P-09
+¿Cómo compara la nutrióloga las mediciones entre consultas y qué ocurre si falta una medición previa?
+Abierta. El equipo deberá observar o reconstruir un ejemplo y distinguir las unidades y los métodos de medición.
+P-10
+¿Cómo localiza la nutrióloga a los pacientes sin consulta reciente y cuánto tiempo dedica a la búsqueda y preparación de notas?
+Abierta. Recorrido de la tarea y registro de tiempos con consentimiento.
+P-11
+¿Con qué equipo trabaja la nutrióloga y qué disponibilidad de internet tiene durante la consulta?
+Abierta. El uso de Excel y Word no confirma conexión ni disponibilidad permanente del equipo.
+
+2 4 Supuestos y forma de contrastarlos
+ID
+Supuesto
+Estado y validación prevista
+S-01
+Las mediciones se capturan manualmente en cada consulta.
+El diagnóstico lo presenta como confirmado, pero falta una referencia específica. El equipo deberá contrastar P-02 mediante un registro o una observación.
+S-02
+La nutrióloga dispone de computadora e internet durante el seguimiento.
+Pendiente. E-05 sugiere el uso de herramientas digitales, sin confirmar su disponibilidad ni la conexión. El equipo deberá resolver P-11.
+S-03
+Los pacientes aceptarían mensajes de seguimiento.
+Pendiente. La existencia de mensajes manuales no demuestra la aceptación de todos los pacientes. El equipo deberá resolver P-05.
+S-04
+Seis meses sin consulta permite identificar los casos relevantes de falta de retorno.
+Criterio declarado en E-06. Su utilidad y sus excepciones están pendientes; el equipo deberá revisar P-04 y la estacionalidad de E-07.
+S-05
+La nutrióloga realiza sola la captura y el agendado.
+Respaldado por declaración en E-08. No se incluye personal de apoyo como actor actual.
+S-06
+Consultar y transcribir información entre archivos genera trabajo repetido relevante.
+Pendiente. E-01 plantea la necesidad, pero falta observar la frecuencia, los pasos y el tiempo. El equipo deberá resolver P-06 y P-10.
+S-07
+Las mediciones de consultas distintas son comparables.
+Pendiente. El equipo deberá confirmar las unidades, los instrumentos y las condiciones en P-02 y P-09.
+
+3 Actores y alcance
+3 1 Actores y relevancia
+Actor
+Participación y motivo de inclusión
+Nutrióloga titular
+Opera los registros, interpreta mediciones, elabora planes, agenda y contacta pacientes. Es la principal informante y responsable de validar el proceso.
+Pacientes
+Aportan datos y preferencias, reciben atención y mensajes y resultan afectados por errores o falta de continuidad. Su experiencia y autorización requieren consideración.
+Equipo de desarrollo
+Investiga, documenta y propone mejoras. Debe distinguir declaraciones, observaciones y supuestos.
+Docente
+Define los criterios académicos y revisa la argumentación. Su evaluación no sustituye la validación del proceso por la nutrióloga.
+
+E-08 indica que no existe personal de apoyo para captura y agenda. Se excluye del sistema actual; si aparece este rol, deberán revisarse actores, responsabilidades y alcance. Los laboratorios y servicios de mensajería se reconocen como contexto cuando aporten información o un canal, sin atribuirles participación operativa no confirmada.
+3 2 Alcance del análisis de esta unidad
+El análisis comprende la consulta de seguimiento: localizar información previa, obtener y registrar mediciones, compararlas, actualizar observaciones y preferencias, preparar y entregar información al paciente y revisar posteriormente la continuidad de atención. La primera consulta se considera un punto de entrada y una excepción por la ausencia de antecedentes de seguimiento. La agenda se estudia como registro del proceso actual, aunque no se propone implementar un módulo de citas en el MVP.
+El diagnóstico busca establecer quién realiza cada tarea, qué datos utiliza, qué reglas aplica y qué dificultades existen. No pretende digitalizar indiscriminadamente toda la actividad del consultorio ni cerrar decisiones de interfaz antes de obtener evidencia.
+3 3 Relación con el alcance del producto
+E-04 propone autenticación, gestión de pacientes y expedientes, consultas, mediciones, historial, comparación de evolución, notas y restricciones, documentos esenciales, resumen de seguimiento, acceso rápido a WhatsApp y formalización opcional de notas con IA bajo revisión humana. Estas funciones son el alcance planificado del producto; su detalle y justificación se revisarán en el dossier de requerimientos.
+La detección de pacientes sin retorno aparece en E-01. Se analizará su necesidad y su relación con el resumen de seguimiento, sin presentarla todavía como una función aprobada con umbral y mensajes automáticos. Los ejemplos compartidos para análisis y desarrollo deben minimizar datos identificables.
+Fuera del producto o de esta etapa
+Justificación del límite
+Catálogo y comparador de productos, reconocimiento de etiquetas, recomendaciones comerciales, alianzas y patrocinios
+Excluidos del MVP por E-04 para proteger el flujo principal de seguimiento.
+Mensajería automática o masiva
+E-04 contempla acceso rápido a WhatsApp. Automatización, reglas de envío y autorizaciones requieren investigación y un acuerdo adicional.
+Pagos y facturación
+No se contemplan en el alcance de E-04. Su ausencia en una comunicación no demuestra que el consultorio no los necesite.
+Módulo de agenda de citas
+No figura entre las funciones de E-04. La agenda actual sí se describe cuando afecta el proceso.
+Modelo de ingresos y decisiones comerciales
+No son objeto del diagnóstico de información y proceso de esta unidad.
+Aplicación móvil independiente e integraciones adicionales
+No se comprometen en E-04. Una decisión posterior requiere justificación y control de cambios.
+Tecnologías y diseño de pantallas como resultado del diagnóstico
+Este entregable fundamenta el problema y el proceso; las decisiones de implementación se administran en el plan de gestión.
+
+4 Decisiones iniciales
+Se mantienen los identificadores del diagnóstico anterior y se actualizan sus razones cuando las declaraciones recogidas cambian el encuadre. Estas decisiones delimitan el análisis; su ratificación corresponde al equipo.
+ID
+Decisión y fundamento
+Actualización o incertidumbre
+D-01
+Se establece el estudio del seguimiento entre consultas y de la revisión de continuidad. E-01 y E-04 relacionan estas tareas con el propósito del proyecto.
+E-06 aporta el criterio declarado de seis meses. P-04 mantiene abiertas su aplicación y excepciones.
+D-02
+Se establece la distinción entre declaración, observación y supuesto. E-05 a E-08 describen lo expresado por la informante.
+El medio de registro está identificado parcialmente; quedan pendientes referencias originales y contraste con registros.
+D-03
+Se establece el análisis del contacto manual y la exclusión de la automatización de mensajes y del modelo de ingresos del MVP. Esta decisión se fundamenta en E-04 y en la sección 3.
+El acceso rápido a WhatsApp permanece en el producto. No se excluye todo envío real ni se asume consentimiento.
+D-04
+Se delimita el análisis al expediente y al seguimiento, sin catálogo, etiquetas ni alianzas, conforme a E-04.
+Se reemplaza la formulación amplia de digitalizar toda la información por tareas concretas del alcance.
+D-05
+Se establece la minimización de la información identificable y el uso de ejemplos ficticios o anonimizados para el desarrollo, conforme a E-04.
+Falta acordar con la informante cómo compartir formatos y conservar evidencia autorizada.
+D-06
+Se excluye al personal de apoyo como actor actual, conforme a E-08.
+Se corrigen sus apariciones en salidas y responsables del AS-IS; una incorporación futura exige revisar el modelo.
+
+4 1 Cambios del encuadre
+La declaración sobre Excel, Word y agenda del celular precisa los medios actuales de registro. La declaración de trabajo individual modifica los actores. El umbral de seis meses reemplaza la estimación previa de tres a seis meses, conservando abierta su utilidad. La existencia de contacto semanal impide afirmar que los pacientes no reciben seguimiento. Estos ajustes se vinculan con E-05, E-06 y E-08.
+4 2 Autoestudio y revisión del equipo
+Las notas personales de los Temas 1 a 3 apoyan la distinción entre problema y solución, el flujo de información y el análisis AS-IS. Se referenciarán por integrante y ubicación verificable, sin anexar conversaciones completas con IA. La declaración anterior de que cada integrante conserva sus notas necesita una referencia localizable.
+Integrante
+Referencia de notas personales
+Diana Gpe. Bojorquez Cetina
+____________________
+Genny D. Navarrete Aguilar
+____________________
+Jilder Alex Dionisio Rojas
+____________________
+Luisa Fernanda Ortiz Baeza
+____________________
+
+En la revisión común, el equipo deberá ratificar las decisiones, identificar el registro de discusión y conservar cualquier desacuerdo. Una redacción actualizada no acredita por sí misma que la discusión haya ocurrido.
+5 Sistema actual
+5 1 Tarea y medios de registro
+La tarea analizada es el seguimiento de un paciente y la revisión posterior de su continuidad. El sistema actual combina personas, información, herramientas y decisiones. E-05 identifica Excel, Word y agenda del celular; E-06 describe contacto manual. Las relaciones entre archivos, cálculos y formatos requieren contraste mediante P-06, P-09 y P-10.
+Entrada
+Quién la produce
+Registro y fuente
+Identificación y contacto
+Paciente; registro por la nutrióloga
+Excel para pacientes según E-05. Campos exactos por revisar.
+Antecedentes y hábitos
+Paciente y nutrióloga; laboratorio cuando corresponda
+Historia clínica descrita en E-08. Formato y actualización por confirmar.
+Alergias, preferencias y restricciones
+Paciente y nutrióloga
+Necesidad señalada en el diagnóstico y E-01. Ubicación exacta y abreviaturas por confirmar en E-03.
+Mediciones actuales
+Nutrióloga mediante instrumentos
+Excel para mediciones según E-05. Método de captura y unidades pendientes en P-02.
+Consultas y mediciones anteriores
+Registros conservados por la nutrióloga
+Excel según E-05. Forma de vincular cada consulta pendiente en P-09.
+Observaciones y notas
+Nutrióloga durante o después de la consulta
+Excel para notas según E-05. Borrador y formato formal pendientes en P-06.
+Última consulta y siguiente cita
+Nutrióloga y paciente
+Agenda del celular según E-05. Ubicación de última consulta y coherencia con Excel pendientes.
+Respuesta al seguimiento
+Paciente y nutrióloga
+Contacto manual según E-06. Registro de respuesta y autorización por investigar en P-05.
+
+5 2 Transformación de la información
+La nutrióloga recoge y registra datos, los relaciona con antecedentes para interpretar la evolución y elabora información para el paciente. E-05 identifica los medios generales, pero no demuestra si las comparaciones se calculan a mano, mediante fórmulas o con otra herramienta. E-01 señala la necesidad de formalizar notas; el grado de transcripción y su relación con los menús de Word se comprobarán con E-03 y P-06.
+Para revisar continuidad, necesita relacionar la última consulta con el criterio declarado en E-06 y consultar los datos de contacto. No está confirmado si dispone de una lista, filtro o procedimiento sistemático para hacerlo. P-04 y P-10 deben precisar esa transformación.
+5 3 Salidas y decisiones que apoyan
+Salida
+Actor que la necesita
+Decisión o uso
+Historial y comparación de mediciones
+Nutrióloga
+La nutrióloga interpreta la evolución y decide los ajustes del seguimiento.
+Información alimentaria pertinente
+Nutrióloga
+La nutrióloga considera las alergias, las preferencias y las restricciones al elaborar el plan.
+Menú o plan y nota cuando corresponda
+Paciente
+El paciente comprende las indicaciones y continúa su atención. La diferencia entre los documentos está pendiente en P-06.
+Registro de próxima cita
+Nutrióloga y paciente
+La nutrióloga y el paciente organizan la continuidad mediante la agenda actual.
+Identificación de pacientes sin consulta reciente
+Nutrióloga
+La nutrióloga decide si corresponde una revisión o un contacto. La forma actual de producir esta salida está pendiente.
+Mensaje y respuesta de seguimiento
+Paciente y nutrióloga
+El paciente y la nutrióloga comunican información sobre la continuidad, las dudas o la disposición para volver, según E-06.
+
+6 Uso de la información
+6 1 Decisiones y responsables
+Decisión
+Información necesaria
+Responsable
+La nutrióloga interpreta la evolución y ajusta el plan
+Mediciones comparables, historial, hábitos, alergias y restricciones.
+Nutrióloga; el paciente aporta información.
+La nutrióloga y el paciente acuerdan la continuidad de las consultas
+Evolución, disponibilidad y condiciones del paciente.
+Nutrióloga y paciente.
+La nutrióloga revisa la falta de retorno y establece contacto
+Última consulta, criterio aplicable, situación del paciente y autorización o acuerdo de contacto por precisar.
+Nutrióloga.
+La nutrióloga corrige un dato
+Registro original, dato correcto y motivo. Procedimiento pendiente en P-08.
+Nutrióloga como operadora actual; facultades concretas por validar.
+
+6 2 Dificultades reportadas y riesgos por comprobar
+Las dificultades se describen con su nivel de respaldo. No se atribuyen errores, retrasos ni pérdida de seguimiento a una tarea sin evidencia del efecto.
+ID
+Problema de información y sustento
+Límite y comprobación
+PI-01
+Comparación de mediciones entre consultas. E-01 plantea apoyo para analizar cambios; E-05 identifica Excel.
+No están comprobados cálculo manual, errores ni demora. P-09 debe identificar método, unidades y resultados.
+PI-02
+Preparación de notas formales a partir de borradores. Necesidad recogida en E-01.
+La duplicación y el tiempo están pendientes de observación. El equipo deberá revisar E-03, P-06 y P-10.
+PI-03
+Identificación de pacientes que no regresan. E-01 expresa la necesidad; E-06 aporta un criterio; E-07 una estimación.
+No se confirma ausencia de lista ni causa del no retorno. P-03, P-04 y P-10 deben contrastarlo.
+PI-04
+Registro del acuerdo para contacto. E-06 no reporta autorización formal.
+No demuestra ausencia de toda autorización. P-05 debe precisar comunicación, aceptación y forma de registro.
+
+6 3 Preguntas que orientan el proceso
+P-06, P-08, P-09 y P-10 permiten aclarar documentos, correcciones, cálculos y revisión de continuidad. S-06 y S-07 mantienen explícitas las hipótesis sobre recaptura y comparabilidad. La duración de la primera consulta en E-08 sirve como contexto; no prueba cuánto tiempo se dedica a tareas repetitivas ni a la consulta de seguimiento.
+7 Proceso actual AS IS
+7 1 Proceso y grado de confirmación
+El proceso corresponde a la consulta de seguimiento y revisión posterior de continuidad. La tabla presenta siete pasos reconstruidos a partir del planteamiento y las declaraciones consignadas. E-05 a E-08 respaldan parte de los medios y responsabilidades, pero no acreditan la validación completa de la secuencia. Cada paso identifica lo conocido y lo que debe contrastarse.
+Paso
+Acción y responsable
+Entrada y salida
+Sustento y pendiente
+1
+La nutrióloga localiza la información del paciente.
+Entrada: identificación y antecedentes. Salida: información previa disponible.
+E-05. Método de búsqueda y ausencia de expediente por confirmar.
+2
+La nutrióloga obtiene las mediciones y actualiza la información con los datos del paciente.
+Entrada: paciente, instrumento e información actual. Salida: mediciones y observaciones.
+E-01 y E-05. Instrumentos, unidades y condiciones en P-02.
+3
+La nutrióloga registra las mediciones y las notas.
+Entrada: valores y conversación. Salida: registro de la consulta.
+E-05. Medio concreto, momento de captura y uso de borrador por comprobar.
+4
+La nutrióloga relaciona los resultados actuales y anteriores.
+Entrada: mediciones comparables. Salida: comparación e interpretación.
+E-01. Método real y manejo de datos faltantes en P-09.
+5
+La nutrióloga prepara el plan y la nota cuando corresponde.
+Entrada: interpretación, preferencias y observaciones. Salida: menú, plan o nota.
+Word para menús en E-05; formalización en E-01. Distinción y formato en P-06.
+6
+La nutrióloga comunica las indicaciones y acuerda la continuidad con el paciente.
+Entrada: plan y disponibilidad. Salida: información entregada y cita cuando se acuerde.
+Agenda en E-05. Canal de entrega y reglas de cita por contrastar.
+7
+La nutrióloga revisa la continuidad y establece contacto cuando corresponde.
+Entrada: última consulta, contacto y situación del paciente. Salida: mensaje, respuesta o revisión pendiente.
+E-06. El equipo deberá distinguir el contacto semanal de la revisión por seis meses y comprobar el registro en P-04 y P-10.
+
+7 2 Decisiones y reglas
+Clasificación
+Regla o decisión y nivel de respaldo
+Práctica declarada
+La nutrióloga realiza sola captura y agenda, según E-08.
+Criterio declarado
+Seis meses sin consulta para considerar que el paciente no regresó, según E-06. Aplicación, excepciones y periodo de referencia por confirmar.
+Práctica declarada
+Contacto semanal manual; si no hay respuesta, espera. E-06. No demuestra que todos los pacientes sigan el mismo recorrido.
+Decisión profesional
+Interpretar mediciones y ajustar el plan corresponde a la nutrióloga. El diagnóstico debe precisar qué información utiliza y cómo decide.
+Regla candidata
+La nutrióloga considera las alergias, las preferencias y las restricciones. Se reconoce su relevancia en el planteamiento; su aplicación concreta se verificará con los formatos y la entrevista.
+Propuesta del producto
+Revisión humana de notas asistidas por IA y trabajo con datos ficticios o anonimizados. E-04. Son condiciones del proyecto futuro, no prácticas actuales de IA del consultorio.
+Condición por aclarar
+Autorización y registro del contacto. E-06 no permite afirmar que exista una regla actual de contactar únicamente con autorización documentada; el equipo deberá resolver P-05.
+
+7 3 Excepciones y caminos alternos
+Primera consulta. E-08 describe una historia clínica nutricia completa y una duración distinta. Al no existir mediciones anteriores, debe aclararse cómo se obtiene la línea de base. No se afirma que la historia clínica sustituya la toma de mediciones.
+Ausencia de respuesta. E-06 señala que la nutrióloga espera. Falta precisar cómo deja constancia, cuándo vuelve a revisar y si el criterio cambia según el caso.
+Datos faltantes, inconsistentes o corregidos. Son escenarios pendientes de reconstrucción mediante P-08 y P-09. No debe atribuirse al consultorio un procedimiento que no haya sido descrito.
+Contacto no disponible o no autorizado. Se investigará el tratamiento real con P-05. La ausencia de un registro formal no permite asumir que el paciente carece de contacto o ha rechazado mensajes.
+Estacionalidad. E-07 menciona variación de asistencia durante el año. Debe comprobarse su relación con el criterio de no retorno antes de interpretar una ausencia como abandono.
+8 Brechas y oportunidad
+8 1 Brechas de información y proceso
+Una brecha relaciona lo que necesita lograr un actor con una dificultad documentada o una pregunta que aún impide comprobarla. La falta de una aplicación no constituye por sí misma una brecha. Los siguientes casos conservan su condición reportada o pendiente; no se presentan como efectos medidos.
+ID
+Brecha y actor afectado
+Sustento y comprobación
+B-01
+La nutrióloga necesita comparar resultados de consultas distintas. No se conoce un procedimiento verificable de comparación ni de manejo de datos faltantes. Afecta su interpretación y la información del paciente.
+Paso 4; E-01 y E-05; PI-01; P-02 y P-09. El equipo deberá verificar el método y las posibles dificultades antes de atribuir errores.
+B-02
+La nutrióloga necesita transformar observaciones en información formal útil para el paciente. Se reporta formalización de borradores, sin comprobar el trabajo repetido.
+Pasos 3 y 5; E-01; PI-02; E-03, P-06 y P-10. El equipo deberá revisar los documentos y el proceso de preparación.
+B-03
+La nutrióloga necesita distinguir pacientes sin retorno y decidir seguimiento. Hay criterio y estimaciones declarados, sin confirmar cómo produce y revisa esa información.
+Paso 7; E-01, E-06 y E-07; PI-03; P-03, P-04 y P-10. El análisis deberá considerar la estacionalidad y evitar que la ausencia se equipare con el abandono.
+B-04
+Nutrióloga y paciente necesitan claridad sobre el contacto y su autorización. No se reporta un registro formal del acuerdo.
+Paso 7; E-06; PI-04 y P-05. El equipo deberá verificar los acuerdos existentes y su registro. No constituye una conclusión jurídica sobre el consultorio.
+
+8 2 Oportunidad de mejora como hipótesis
+Si la nutrióloga puede consultar información de seguimiento coherente, comparar mediciones verificables y reutilizar datos al preparar documentos, podría reducir búsquedas y transcripciones que resulten innecesarias. Una revisión clara de la última consulta también podría apoyar la continuidad de atención. Esta hipótesis requiere contrastar B-01 a B-04 con formatos y recorridos reales; no permite prometer reducción de errores, ahorro de tiempo ni mayor retorno de pacientes sin evaluación.
+En la recolección posterior se investigarán los pasos de comparación, preparación de documentos y revisión de continuidad. Se registrarán repeticiones, datos faltantes y tiempos solo cuando exista autorización y un contexto definido. La evidencia obtenida determinará qué necesidades se convierten en requisitos del Documento 2.
+8 3 Trazabilidad del diagnóstico
+Elemento
+Origen y relación
+Problema de sección 2
+E-01 y declaraciones E-05 a E-08; límites S-06 y S-07; contraste P-06, P-09 y P-10.
+Actores y responsabilidades
+E-08 → S-05 → D-06 → sección 3 y responsables del AS-IS.
+Límites de producto
+E-04 → D-03 y D-04 → sección 3. E-01 conserva necesidades que requieren acuerdo adicional.
+Comparación de mediciones
+E-01 y E-05 → PI-01 → paso 4 → B-01 → P-02 y P-09.
+Preparación de documentos
+E-01 → PI-02 → pasos 3 y 5 → B-02 → E-03, P-06 y P-10.
+Continuidad y no retorno
+E-01, E-06 y E-07 → PI-03 → paso 7 → B-03 → P-03, P-04 y P-10.
+Contacto y autorización
+E-06 → PI-04 → paso 7 → B-04 → P-05.
+Corrección y disponibilidad
+P-08 y P-11 → reglas y excepciones pendientes → revisión del AS-IS y alcance.
+
+8 4 Pendientes para completar la validación
+El equipo deberá vincular E-01 y E-05 a E-08 con el registro de comunicación o entrevista, el medio, el contexto y el fragmento correspondiente, sin publicar datos sensibles.
+El equipo deberá obtener E-03, localizar E-02 y vincular la evidencia de los instrumentos mencionada en P-02.
+El equipo deberá contrastar el AS-IS con la nutrióloga y registrar los acuerdos, las excepciones, los desacuerdos y las modificaciones. No se da por validado el flujo completo.
+El equipo deberá resolver P-05, P-06, P-08, P-09, P-10 y P-11, así como precisar los periodos y las excepciones en P-03 y P-04.
+El equipo deberá confirmar el grupo y la denominación final del proyecto, completar las referencias de autoestudio y ratificar las decisiones de análisis.
+El equipo deberá conservar explícitamente los pendientes que no se resuelvan. La especificación posterior no debe convertirlos en requisitos aprobados sin sustento.
+Calendario de comprobación
+La entrevista SE-01 se realizó el 30/09/2026. El dossier propone completar la revisión documental, la observación simulada y la entrevista de profundización antes del 05/10/2026. Propone la validación V-01 para el 06/10/2026 por videollamada, por confirmar con la cliente, dentro del límite previsto de antes del 07/10/2026. La versión 0.2 del dossier está prevista para el 08/10/2026. Estas actividades futuras no se registran como realizadas.
+El plan de gestión y RC-02 del dossier establecen el 10/10/2026 como fecha límite del MVP. Las fechas de los casos ficticios de aceptación del Documento 2 no se utilizan como fechas reales del diagnóstico.
+Las fechas de las versiones 1.0 y 1.1 se conservan del historial del diagnóstico original. El dossier confirma la entrevista y la versión de referencia 1.2 del 30/09/2026. Las versiones 1.3 y 1.4 corresponden a la revisión y actualización de este diagnóstico.
+8 5 Control de versiones
+Ver.
+Cambio conservado
+Responsable
+Fecha
+1.0
+Diagnóstico inicial de los Temas 1 a 3, según historial del documento anterior.
+Equipo
+27/09/2026
+1.1
+Incorporación de integrantes, responsabilidades y alcance del plan de gestión, según historial anterior.
+Equipo
+27/09/2026
+1.2
+Incorporación de declaraciones de entrevista y actualización de preguntas y supuestos, según historial anterior.
+Equipo
+30/09/2026
+1.3
+Revisión de los puntos 1 a 8: coherencia de fuentes y estados, actores, alcance, proceso, brechas, trazabilidad y pendientes.
+Equipo para revisión
+30/09/2026
+1.4
+Actualización de fechas de entrevista, comunicación previa, versiones y actividades previstas, con referencia al dossier.
+Equipo para revisión
+30/09/2026
+
+Referencias del diagnóstico
+F-01. Diagnostico_NutriGest_Temas_1-3.docx, versión 1.2. Fuente de los planteamientos, declaraciones de entrevista e historial de versiones. Sus referencias internas E-01 a E-08 se conservan y se explicitan en la sección 2.
+F-02. GestNutri_Plan_Gestion (2).pdf. Secciones 1, 5, 7, 12, 13 y 15. Fuente de alcance, planificación y condiciones del producto.
+F-03. Sitio de Análisis y Diseño de Software de la Unidad I, versión 2. Temas 1, 2 y 3 y protocolo de defensa. URL: https://analisis-diseno-software-utm-v2.carlos-canto-bonilla.chatgpt.site/
+F-04. Instrucción de la tarea Documento 1, puntos 1 al 8, compartida mediante captura. Establece las ocho secciones principales de este entregable.
+F-05. Dossier_Requerimientos_NutriGest_Documento2 (2).docx, versión 0.1 del 30/09/2026. Secciones 9.5, 10.1, 12.3 y 12.5, y RC-02. Fuente de fechas de recolección, validación propuesta, próxima versión y entrega del MVP.

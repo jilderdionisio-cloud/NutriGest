@@ -1,0 +1,697 @@
+UNIVERSIDAD TECNOLÓGICA METROPOLITANA
+Desarrollo de Software Multiplataforma
+Análisis y Diseño de Software
+Requerimientos de la aplicación NutriGest
+Documento 2Temas 4 y 5 de la Unidad IPuntos 9 al 12
+Integrantes
+Diana Gpe. Bojorquez Cetina
+Genny D. Navarrete Aguilar
+Jilder Alex Dionisio Rojas
+Luisa Fernanda Ortiz Baeza
+30 de septiembre de 2026 · Versión 0.1.2
+Grupo pendiente de confirmar
+Propósito del documento
+Este documento explica cómo se investigan las necesidades de un consultorio de nutrición y cómo esa información se convierte en requisitos para NutriGest. Incluye el plan de recolección, los resultados registrados, las funciones propuestas, las pruebas para comprobarlas y la revisión que deberá realizarse con la nutrióloga.
+La información disponible describe el uso de Excel para pacientes, mediciones y notas, Word para menús y la agenda del celular para citas. La aplicación propuesta busca relacionar el expediente, las consultas y la evolución del paciente. Los formatos y varias reglas de trabajo necesitan confirmarse antes de cerrar la especificación.
+La entrevista del 30 de septiembre se registra como realizada conforme a lo consignado por el equipo. La revisión de formatos, la observación de tareas y la validación con la cliente todavía están pendientes. Las fechas previstas se conservan como propuestas.
+Organización y términos del documento
+El Documento 1, versión 1.4, explica el problema, los actores y el proceso actual. Este Documento 2 desarrolla los Temas 4 y 5: primero investiga lo que falta conocer y después presenta una especificación que puede revisarse y probarse.
+Punto exigido
+Contenido
+9 Plan de recolección
+Qué se necesita averiguar, cómo se obtendrá la información y cómo se protegerá.
+10 Bitácora de evidencia
+Qué información se registró, qué significa y qué debe contrastarse.
+11 Catálogo de requisitos
+Qué deberá hacer la aplicación, con qué condiciones y prioridad.
+12 Validación y trazabilidad
+Cómo se comprobará cada requisito, quién lo revisará y qué cambios quedarán registrados.
+
+Cómo leer los requisitos
+Cada requisito cuenta con un identificador: RF corresponde a un requisito funcional, RNF a una condición de calidad y RC a una restricción del proyecto. Por ejemplo, RF-01 identifica la autenticación. El catálogo presenta el nombre, la descripción, la fuente, la prioridad, las dependencias y el estado de cada requisito.
+Un requisito funcional describe una acción de la aplicación, como guardar una consulta. Un requisito de calidad indica cómo debe funcionar una tarea, por ejemplo dentro de un tiempo acordado. Una restricción establece un límite del proyecto, como la fecha de entrega o el uso de datos ficticios.
+Estados de revisión
+Estado
+Significado
+Propuesto
+Requisito presentado para revisión, con aprobación de la cliente pendiente.
+Pendiente de definición
+Hay una función o condición propuesta, pero faltan campos, reglas o decisiones para cerrarla.
+Definido en el plan
+Es una condición que ya aparece en el plan de gestión. La revisión del proceso con la cliente se registra aparte.
+Aceptado o ajustado
+Se utilizará solamente después de registrar una validación real y sus resultados.
+
+El producto mínimo viable es la primera versión demostrable de la aplicación. En este documento se denomina versión inicial y conserva la fecha límite del 10 de octubre de 2026.
+9 Plan de recolección
+9 1 Objetivo de la investigación
+La siguiente ronda de investigación busca comprobar cómo la nutrióloga registra información, compara mediciones, prepara notas y revisa a los pacientes que no han vuelto. También debe aclarar cómo corrige errores y cómo acuerda el contacto fuera de consulta. Con esos resultados se podrán confirmar o modificar los requisitos de la aplicación.
+La entrevista inicial aporta declaraciones sobre la práctica actual. Para completar el análisis se propone revisar formatos vacíos o con ejemplos ficticios y observar tareas simuladas. No se presupone que exista un error, una demora o un cálculo manual hasta obtener evidencia que lo demuestre.
+9 2 Preguntas prioritarias y técnicas
+Registros y formatos
+¿Qué campos se usan para pacientes, historia clínica y nota formal, y cuáles son obligatorios?
+Técnica. Revisión de formatos y entrevista de aclaración.
+Relación con el diagnóstico. Se necesita conocer la información que realmente se registra y lo que debe reutilizarse al preparar una nota. Los formatos muestran estructura; la entrevista explica su uso.
+Límite. El formato no demuestra por sí solo cómo se llena ni la frecuencia de errores.
+Mediciones y comparación
+¿Qué valores se registran de los instrumentos, en qué unidades y cómo se comparan entre consultas?
+Técnica. Observación de captura simulada y revisión de una hoja de mediciones.
+Relación con el diagnóstico. La comparación es una necesidad del diagnóstico. La simulación permitirá ver indicadores, unidades, fórmulas, referencia utilizada y datos faltantes.
+Límite. El ritmo de una simulación puede diferir de una consulta real.
+Continuidad de pacientes
+¿Cómo reconoce la nutrióloga que un paciente no volvió y cómo decide a quién contactar?
+Técnica. Entrevista sobre un caso concreto y revisión simulada de sus registros.
+Relación con el diagnóstico. El diagnóstico recoge un criterio de seis meses y seguimiento semanal. Falta conocer cómo se relacionan y qué excepciones existen.
+Límite. No permite explicar por qué los pacientes dejan de regresar, porque no se les entrevista.
+Acuerdo de contacto
+¿Qué explica la nutrióloga sobre los mensajes de seguimiento y cómo registra la aceptación o el rechazo?
+Técnica. Entrevista y revisión de un mensaje genérico.
+Relación con el diagnóstico. El diagnóstico no identifica un registro formal del acuerdo. La investigación debe aclarar los acuerdos que existen y cómo se conocen.
+Límite. No representa la opinión de todos los pacientes ni constituye una evaluación legal.
+Corrección de información
+¿Cómo detecta la nutrióloga un dato equivocado, cómo lo corrige y qué constancia conserva?
+Técnica. Entrevista y observación de una corrección simulada.
+Relación con el diagnóstico. La corrección es una excepción del proceso actual que necesita una descripción verificable.
+Límite. No prueba cuántos errores ocurren; para eso harían falta registros históricos.
+9 3 Fuentes y selección de participantes
+La principal informante es la nutrióloga titular, porque la entrevista indica que ella realiza la captura, interpreta las mediciones, agenda y contacta a los pacientes. Su participación permite estudiar esas tareas, pero su declaración no sustituye la revisión de registros ni una observación.
+Los documentos del consultorio se seleccionarán por su relación con las tareas: hoja de pacientes, hoja de mediciones, historia clínica, nota formal y mensaje de seguimiento. Los documentos del equipo se usarán para conocer el alcance y las restricciones del proyecto, sin tratarlos como evidencia independiente del consultorio.
+La muestra se limita a una profesional y un consultorio. No se prevén entrevistas con pacientes ni otros profesionales en esta ronda. Por eso, no podrán generalizarse los resultados ni atribuirse razones de no retorno o aceptación de mensajes a todos los pacientes. No se incluye personal de apoyo actual, pues la nutrióloga declara que trabaja sola.
+9 4 Responsables y fechas
+Actividad
+Responsable
+Fecha y estado
+Entrevista inicial
+Genny condujo y Luisa registró, según el documento original.
+30/09/2026, registrada como realizada.
+Revisión de formatos
+Diana, propuesta.
+Antes del 05/10/2026, dependiente de recibir formatos.
+Observación de captura y corrección
+Jilder, con apoyo de Luisa, propuestos.
+Antes del 05/10/2026, por confirmar.
+Entrevista de continuidad y contacto
+Genny, propuesta.
+Antes del 05/10/2026, por confirmar.
+Bitácora y relación entre requisitos y pruebas
+Luisa, propuesta; revisión de todo el equipo.
+Durante la investigación.
+Validación con la nutrióloga
+Nutrióloga y equipo; Luisa registra.
+06/10/2026 por videollamada, propuesta y por confirmar; antes del 07/10/2026.
+Actualización tras validación
+Equipo.
+Versión 0.2 prevista para 08/10/2026.
+Entrega de la aplicación inicial
+Equipo.
+10/10/2026, fecha límite del plan.
+
+Cada actividad se registrará mediante notas, una ficha de documento o una ficha de observación. Los cuatro integrantes participan en el análisis, aunque una persona dirija o registre una sesión.
+9 5 Consentimiento y cuidado de la información
+Antes de una sesión se explicará su finalidad académica, el uso de las notas y quién podrá consultarlas. La participante podrá detener la actividad o pedir que se retire una información. Se solicitará autorización para tomar notas y, por separado, para cualquier grabación o fotografía. La bitácora debe conservar fecha, alcance del permiso, persona que lo solicitó y referencia a su constancia.
+De los pacientes solo se necesitan campos y ejemplos ficticios. No se recopilarán nombres, teléfonos, diagnósticos, resultados de laboratorio ni fotografías reales. Tampoco se solicitarán contraseñas o acceso a cuentas del consultorio. Si un archivo contiene información identificable, se retirará del análisis y se pedirá una versión vacía o ficticia.
+Las notas se conservarán en una carpeta privada, con acceso limitado al equipo y al docente para la evaluación. El equipo debe registrar la ubicación, la persona responsable y el plazo de conservación acordado. No se publicarán datos de pacientes en repositorios o chats abiertos. Estos cuidados siguen los principios generales de finalidad, limitación de recolección y seguridad descritos por la OCDE en la referencia final.
+El documento original reporta permiso verbal para la entrevista del 30 de septiembre; falta vincular la constancia original. El permiso de esa entrevista no equivale al acuerdo de un paciente para recibir mensajes ni a autorización para procesar datos clínicos con servicios externos.
+9 6 Instrumentos de investigación
+Guion de entrevista
+Este guion prepara la ronda de contraste. No se presenta como transcripción del guion utilizado en la entrevista inicial. El equipo debe conservar la versión realmente aplicada y registrar cualquier cambio que haya realizado.
+Introducción. El equipo se presentará como un grupo de estudiantes de la UTM que investiga la organización de la información y el seguimiento del consultorio. Explicará que tomará notas para el trabajo académico sin datos reales de pacientes y que la participante podrá detener la sesión o solicitar que alguna información no se registre. Se preguntará si la participante autoriza la continuación de la sesión y la toma de notas. Cualquier grabación o fotografía requerirá un permiso independiente.
+Primera consulta. Se solicitará a la nutrióloga que describa una primera consulta desde la llegada de la persona hasta su salida. ¿Qué información reúne la nutrióloga y cómo decide qué actualizar después?
+Registros. Se solicitará a la nutrióloga que presente un formato vacío o ficticio. ¿Para qué sirve cada campo y qué ocurre si falta información?
+Mediciones. Se solicitará a la nutrióloga que muestre qué registra de cada instrumento y cómo compara dos consultas. ¿Qué hace la nutrióloga cuando falta un valor o los datos no son comparables?
+Continuidad. Se solicitará a la nutrióloga que describa un caso reciente sin identificar al paciente. ¿Cómo reconoció la nutrióloga que el paciente no volvió? ¿A quién escribe cada semana y qué hace si no recibe respuesta?
+Mensajes. ¿Cómo explica la nutrióloga el propósito del contacto y cómo conoce la preferencia de recibir o rechazar mensajes?
+Notas y documentos. Se solicitará a la nutrióloga que muestre, con información ficticia, cómo prepara una nota final. ¿Qué distingue la nota del menú? ¿Qué documentos y resumen necesita consultar la nutrióloga?
+Correcciones. Se solicitará a la nutrióloga que describa un caso de dato equivocado sin identificar al paciente. ¿Cómo se detectó y corrigió el dato y qué constancia quedó?
+Entorno y tiempos. ¿Con qué equipo y conexión trabaja la nutrióloga? ¿Qué hace si la tarea se interrumpe? ¿Cuánto tarda cada paso?
+Cierre. ¿Qué falta en la descripción elaborada por el equipo? ¿Qué formatos vacíos o ficticios puede compartir la nutrióloga? ¿La nutrióloga acepta revisar los hallazgos y requisitos con el equipo? Se confirmarán los documentos autorizados y los pendientes.
+Pregunta que sugiere una respuesta
+Pregunta abierta y neutral
+¿La nutrióloga desea que el sistema calcule automáticamente la grasa y el músculo?
+¿Cómo compara actualmente la nutrióloga las mediciones de dos consultas?
+¿Es difícil y lento detectar a quien no regresa?
+¿Cómo reconoce la nutrióloga que una persona dejó de acudir?
+¿La nutrióloga usa WhatsApp y a los pacientes les gustan los recordatorios?
+¿Cómo se comunica la nutrióloga fuera de consulta? Después: ¿cómo conoce la preferencia de recibir mensajes?
+
+Ficha de revisión documental
+Por cada documento se registrarán nombre, versión o fecha, procedencia, permiso de uso, finalidad, campos, tipos de dato, unidades, obligatoriedad, responsable de llenado y reglas o fórmulas. Se separará lo que aparece en el archivo de la interpretación del equipo. Cada conclusión indicará la hoja, campo o apartado correspondiente.
+Documento esperado
+Información por revisar
+Hoja de pacientes
+Identificación, contacto, forma de distinguir expedientes y registro de última consulta.
+Hoja de mediciones
+Indicadores, unidades, fechas, fórmulas, comparación y valores faltantes.
+Historia clínica
+Secciones, campos obligatorios y cambios en consultas posteriores.
+Nota formal
+Partes fijas y variables, datos reutilizados, logo y diferencia respecto del menú.
+Mensaje genérico
+Finalidad del contacto y forma de informar al paciente.
+
+Campos de la ficha: documento y ubicación; fecha; responsable; permiso; revisión de datos; campo observado; descripción; interpretación; pregunta pendiente y acción siguiente. Todos se completarán al recibir y analizar el archivo.
+Protocolo de observación simulada
+Se observará una tarea completa con datos ficticios, sin dirigir el recorrido. Se registrarán las acciones en orden, los documentos que abre, los valores que utiliza, el tiempo por paso y cualquier ayuda o interrupción. Al terminar, la nutrióloga podrá corregir la descripción de la secuencia.
+Se proponen tres casos: una consulta de seguimiento con dos antecedentes, una alergia y una medición incompleta; revisión de un paciente con siete meses sin consulta y otro sin consultas; y corrección de un dato equivocado. En cada caso se anotará el hecho observado, la explicación de la participante, la interpretación y la duda pendiente por separado.
+Campos de la ficha: fecha, participante por rol, permiso, responsable del registro, caso ficticio, acción, inicio y fin, herramienta, dato consultado, resultado, cita exacta si existe, interpretación y pregunta. Un relato se identifica como declaración; únicamente una acción presenciada se registra como observación.
+10 Bitácora de evidencia
+10 1 Fuentes y actividades registradas
+Fuente o actividad
+Fecha y técnica
+Registro y límite
+Entrevista con la nutrióloga titular
+30/09/2026. Entrevista semiestructurada y revisión de fotografías del instrumental, según el documento original.
+El documento reporta videollamada, Genny como entrevistadora, Luisa como responsable de notas y permiso verbal. Falta vincular el registro original y la constancia del permiso.
+Comunicación previa y documentos del proyecto
+La comunicación por chat se reporta anterior al 30/09/2026, sin día exacto. Revisión documental.
+El diagnóstico recoge el planteamiento de la cliente. El plan de gestión está disponible. El informe previo y el chat original deben localizarse.
+Formatos del consultorio
+Revisión propuesta antes del 05/10/2026.
+Actividad pendiente: no se registran documentos recibidos ni conclusiones de una revisión ejecutada.
+
+Los hallazgos siguientes son paráfrasis de lo consignado en el diagnóstico y en el documento original. No se presentan como citas literales de la nutrióloga. Las fotografías del instrumental no prueban por sí solas cómo se captura o calcula una medición.
+10 2 Hallazgos e interpretación
+Medios de registro
+Información registrada. La entrevista reporta Excel para pacientes, mediciones y notas; Word para menús y agenda del celular para citas.
+Interpretación. Los formatos pueden orientar el expediente de la aplicación. Usar herramientas distintas no demuestra por sí solo errores o duplicación de trabajo.
+Comprobación pendiente. El equipo deberá revisar los formatos y analizar cómo se relacionan.
+Instrumental y captura
+Información registrada. El documento original menciona básculas Beurer y Omron HBF-514C, plicómetro y transcripción manual a Excel.
+Interpretación. La captura manual es una opción propuesta. Faltan referencias de las fotografías, unidades y comprobación de la tarea.
+Comprobación pendiente. El equipo deberá localizar el registro de origen y observar una captura simulada.
+Contacto de seguimiento
+Información registrada. Se reportan mensajes semanales manuales; ante falta de respuesta, la nutrióloga espera. No se reporta un registro formal del acuerdo de mensajes.
+Interpretación. No puede concluirse que no exista permiso verbal ni que todos los pacientes acepten el contacto.
+Comprobación pendiente. El equipo deberá aclarar a quién escribe la nutrióloga, cómo conoce la preferencia de contacto y cómo la registra.
+Plazo sin consulta
+Información registrada. Se declara un criterio de seis meses para considerar que el paciente no regresó.
+Interpretación. Es una regla candidata. Deben confirmarse la forma de contar meses y sus excepciones.
+Comprobación pendiente. El equipo deberá revisar casos ficticios de límite y estacionalidad.
+Volumen y no retorno
+Información registrada. Se estiman entre 10 y 12 pacientes al mes y unos 3 que dejan de regresar; se describe variación durante el año.
+Interpretación. No se conoce el periodo de esos 3 ni si la cifra mensual cuenta personas o consultas. No puede calcularse una tasa de abandono.
+Comprobación pendiente. El equipo deberá precisar el periodo, la unidad de conteo y los registros que sustenten la estimación.
+Primera consulta
+Información registrada. Se reporta historia clínica nutricia y una duración de 1 hora 45 minutos a 2 horas.
+Interpretación. Justifica investigar campos, pero no demuestra el tiempo de registro de seguimiento ni necesidad de guardar parcialmente.
+Comprobación pendiente. El equipo deberá revisar la historia clínica y determinar qué información se actualiza en consultas posteriores.
+Responsabilidades
+Información registrada. La nutrióloga declara que realiza sola captura y agenda.
+Interpretación. Es la operadora actual; los pacientes siguen siendo actores afectados. La autenticación continúa siendo necesaria.
+Comprobación pendiente. El equipo deberá mantener la descripción del proceso sin personal de apoyo actual y revisarla si cambia este contexto.
+10 3 Comparación de fuentes y asuntos por aclarar
+Comparar el informe del equipo con la entrevista ayuda a detectar diferencias, pero no constituye confirmación independiente de la práctica. La triangulación completa requiere contrastar lo declarado con documentos del consultorio y acciones observadas.
+Registro en papel
+El informe previo citado mencionaba libretas y hojas de cálculo; la entrevista reporta Excel, Word y celular. Coinciden en hojas de cálculo, pero el papel no está confirmado. Diana revisará formatos y Genny aclarará su uso.
+Cálculo de variaciones
+El método de cálculo de las variaciones no se ha comprobado mediante una hoja de mediciones o una observación. Diana revisará las fórmulas y Jilder observará una comparación simulada.
+Tres a seis meses frente a seis meses
+El informe citado proponía entre tres y seis meses; la entrevista declara seis. Se conserva seis como criterio candidato y se validan sus límites, sin afirmar que la regla del sistema ya está aprobada.
+Mensajes semanales y no retorno
+Ambas situaciones pueden coexistir. Falta saber si los mensajes se dirigen a pacientes activos, a quienes no regresaron o a ambos grupos. La próxima entrevista debe aclararlo.
+Contacto autorizado
+La ausencia reportada de registro formal no prueba contacto sin consentimiento. Se investigarán acuerdos actuales y se definirá el comportamiento futuro de la aplicación.
+Aplicación web o de escritorio
+El informe citado describía escritorio, mientras que el plan de gestión y el diagnóstico actualizado describen una aplicación web. Este documento se alinea con el plan web; deben ratificarse el entorno y la actualización del informe anterior.
+10 4 Preguntas que siguen abiertas
+1. ¿Qué campos de identificación, contacto e historia se usan y cuáles son obligatorios?
+2. ¿Qué indicadores, unidades e instrumentos se utilizan y cuándo son comparables?
+3. ¿Qué estructura tiene la nota formal y cómo se distingue del menú?
+4. ¿Cómo se elige la consulta de referencia y qué se hace cuando falta una medición?
+5. ¿Cómo se detecta el no retorno, a quién se escribe cada semana y qué excepciones tiene el plazo de seis meses?
+6. ¿Cómo se trata a un paciente registrado que todavía no tiene consultas?
+7. ¿Qué acuerdos de mensajes existen y cómo debe actuar la aplicación si no hay constancia?
+8. ¿Qué persona corrige, qué campos puede cambiar y qué constancia se conserva?
+9. ¿Qué documentos son esenciales y qué debe incluir el resumen de seguimiento?
+10. ¿Se iniciará con registros nuevos o se necesita importar información de Excel?
+11. ¿Con qué dispositivo, navegador y conexión se usará la aplicación y qué tiempo de registro será aceptable?
+12. ¿Qué contenido ficticio podrá utilizarse en la demostración de IA y cómo se revisará la propuesta?
+Estas preguntas se resolverán con la revisión documental, los recorridos simulados y la sesión de validación. Hasta entonces, los requisitos afectados mantienen su estado pendiente de definición. No se convierten en acuerdos por el hecho de estar redactados.
+10 5 Reglas candidatas
+El plazo de seis meses orienta la revisión de continuidad, pero la nutrióloga decide el contacto y debe confirmar límites y excepciones.
+Las alergias, preferencias y restricciones deben estar disponibles para las decisiones de consulta; su uso concreto se validará.
+El acceso de contacto debe respetar el acuerdo de mensajes que se defina y registre; no se afirma que este registro ya exista en el consultorio.
+La interpretación y las decisiones clínicas corresponden a la nutrióloga. Los cálculos y las propuestas de redacción son apoyo.
+La primera consulta incluye historia clínica nutricia; no sustituye por esa razón la toma de mediciones ni otros pasos necesarios.
+10 6 Relación con las versiones del diagnóstico
+El diagnóstico de referencia corresponde a la versión 1.4. Describe el proceso actual sin personal de apoyo, distingue hechos reportados y supuestos, conserva las preguntas sobre comparación y contacto y registra las fechas de las actividades.
+La evidencia nueva puede justificar otra actualización: por ejemplo, confirmar campos, unidades o constancia de correcciones. Cada cambio deberá indicar la fuente, qué apartado se modifica y la nueva versión. No se modificarán identificadores del diagnóstico para darles otro significado.
+11 Catálogo de requisitos
+11 1 Necesidades y criterios de prioridad
+Las principales necesidades son relacionar el expediente con las consultas, comparar mediciones, conservar información alimentaria, preparar notas, revisar continuidad y facilitar el contacto. El plan también contempla documentos esenciales, un resumen de seguimiento y constancia de cambios. Su detalle debe ajustarse a la evidencia y al tiempo disponible.
+La prioridad alta protege el acceso y el recorrido de pacientes, consultas, mediciones, historial y comparación. La prioridad media corresponde a funciones útiles del plan que tienen alternativas manuales o detalles pendientes. La prioridad baja se aplica a la IA opcional cuando puede comprometer el flujo principal. El equipo debe ratificar esta propuesta: el plan considera la IA de prioridad media, pero permite recortar funciones secundarias ante retrasos.
+Los requisitos siguientes especifican una acción o condición reconocible. La fuente indica dónde se origina, la necesidad explica para qué sirve y las dependencias muestran qué debe estar disponible primero. Tener prioridad alta no demuestra que una función extensa sea factible dentro del plazo.
+11 2 Requisitos funcionales
+Autenticación RF 01
+Antes de permitir consultar o modificar expedientes, el sistema debe validar las credenciales de una cuenta autorizada.
+Fuente y necesidad. Plan de gestión, apartado 1 y actividad de inicio de sesión seguro. Necesidad: Proteger acceso y exposición de información.
+Prioridad. Alta: protege el acceso y es parte del flujo mínimo.
+Dependencias y estado. Es necesario disponer de una cuenta autorizada. No requiere otro módulo funcional. Estado: Propuesto.
+Alta de paciente RF 02
+Cuando la nutrióloga complete los campos acordados para un paciente nuevo, el sistema debe guardar un expediente identificado de forma única.
+Fuente y necesidad. Entrevista del 30/09/2026 sobre registro en Excel; plan de gestión, actividades de alta y expediente; diagnóstico, apartado 5.1. Necesidad: Relacionar pacientes, consultas e historial.
+Prioridad. Alta: permite asociar consultas a un paciente.
+Dependencias y estado. Requiere inicio de sesión. Antes de cerrar el alta deben acordarse los campos obligatorios y cómo distinguir expedientes. Estado: Pendiente de definición.
+Búsqueda de paciente RF 03
+Cuando la nutrióloga introduzca parte del nombre, el sistema debe listar las coincidencias y permitir seleccionar el expediente correspondiente.
+Fuente y necesidad. Plan de gestión, actividad de lista y búsqueda; diagnóstico, apartado 7.1, paso de localizar información. Necesidad: Relacionar pacientes, consultas e historial.
+Prioridad. Alta: permite localizar el expediente en el flujo básico.
+Dependencias y estado. Requiere inicio de sesión y pacientes registrados. Debe acordarse qué dato permitirá distinguir nombres iguales. Estado: Propuesto.
+Corrección de datos del paciente RF 04
+Cuando la nutrióloga corrija un dato permitido del paciente, el sistema debe conservar el valor corregido en el mismo expediente.
+Fuente y necesidad. Plan de gestión, actividad de edición de pacientes; diagnóstico, pregunta sobre correcciones y apartado 7.3. Necesidad: Relacionar pacientes, consultas e historial.
+Prioridad. Alta: permite mantener la información del expediente.
+Dependencias y estado. Requiere un expediente existente y acceso autorizado. Falta acordar campos corregibles y la constancia del cambio. Estado: Pendiente de definición.
+Historia clínica nutricia RF 05
+Durante la primera consulta, el sistema debe permitir guardar la información de historia clínica de las secciones que se acuerden con la nutrióloga.
+Fuente y necesidad. Entrevista del 30/09/2026 sobre primera consulta; diagnóstico, apartado 7.3; plan de gestión, actividad de expediente. Necesidad: Registrar información de primera consulta.
+Prioridad. Alta propuesta: fundamenta el expediente. Debe limitarse a los campos factibles dla versión inicial; no consta un acuerdo verificable para digitalizar toda la actividad del consultorio.
+Dependencias y estado. Requiere paciente y consulta registrados. Los campos de historia clínica y su obligatoriedad se definirán con los formatos del consultorio. Estado: Pendiente de definición.
+Registro de consulta RF 06
+Cuando la nutrióloga registre una consulta, el sistema debe asociarla al paciente seleccionado y conservar su fecha.
+Fuente y necesidad. Entrevista del 30/09/2026 sobre registros; plan de gestión, actividad de consultas; diagnóstico, apartado 7.1. Necesidad: Relacionar pacientes, consultas e historial.
+Prioridad. Alta: sostiene el historial, las mediciones y el seguimiento.
+Dependencias y estado. Requiere acceso autorizado y un paciente registrado. Incluye primera consulta y seguimiento; sus campos pueden diferir. Estado: Propuesto.
+Captura de mediciones RF 07
+En una consulta, el sistema debe conservar cada medición capturada manualmente junto con su indicador y unidad acordados.
+Fuente y necesidad. Plan de gestión, actividad de mediciones; entrevista sobre Excel y detalle de captura reportado en el documento original, apartado 10.2. Necesidad: Comparar mediciones de consultas distintas.
+Prioridad. Alta: la comparación requiere valores identificables y comparables.
+Dependencias y estado. Requiere una consulta registrada. Antes de fijar los campos deben confirmarse indicadores, unidades y condiciones de medición. Estado: Pendiente de definición.
+Comparación entre consultas RF 08
+Cuando existan valores comparables en la consulta actual y en la consulta de referencia, el sistema debe mostrar la diferencia del indicador como valor actual menos valor de referencia.
+Fuente y necesidad. Comunicación inicial de la cliente; plan de gestión, actividad de comparación y apartado 7; diagnóstico, paso de comparar mediciones. Necesidad: Comparar mediciones de consultas distintas.
+Prioridad. Alta: responde a la necesidad de conocer la evolución entre consultas.
+Dependencias y estado. Requiere mediciones comparables de dos consultas. Falta definir referencia, unidades, precisión y redondeo. Estado: Pendiente de definición.
+Historial de consultas RF 09
+Cuando la nutrióloga abra el historial de un paciente, el sistema debe mostrar sus consultas ordenadas por fecha y permitir consultar sus mediciones.
+Fuente y necesidad. Entrevista sobre registros de consultas; plan de gestión, actividad de historial; diagnóstico, apartados 5.3 y 6.1. Necesidad: Relacionar pacientes, consultas e historial.
+Prioridad. Alta: permite revisar antecedentes y evolución.
+Dependencias y estado. Requiere consultas y mediciones asociadas al paciente. Se propone mostrar primero la consulta más reciente, pendiente de validación. Estado: Propuesto.
+Datos alimentarios del paciente RF 10
+El sistema debe permitir guardar por paciente alergias, preferencias y restricciones alimentarias, distinguiendo un dato no registrado de una declaración de ausencia.
+Fuente y necesidad. Comunicación inicial de la cliente; plan de gestión, actividad de notas, preferencias y restricciones; diagnóstico, apartado 5.1. Necesidad: Conservar información alimentaria relevante.
+Prioridad. Alta: conserva información relevante al seguimiento y forma parte de la actividad de notas y preferencias del plan.
+Dependencias y estado. Requiere un paciente registrado. Los nombres y opciones de los campos se acordarán; un alimento rechazado no se tratará automáticamente como alergia. Estado: Pendiente de definición.
+Consulta de datos alimentarios RF 11
+Al abrir una consulta, el sistema debe mostrar las alergias y restricciones registradas del paciente.
+Fuente y necesidad. Comunicación inicial de la cliente; plan de gestión, información alimentaria; diagnóstico, regla candidata del apartado 7.2. Necesidad: Conservar información alimentaria relevante.
+Prioridad. Alta propuesta: hace localizable la información usada en la atención.
+Dependencias y estado. Requiere consulta e información alimentaria guardadas. La nutrióloga debe confirmar cómo necesita verlas durante la tarea. Estado: Propuesto.
+Notas preliminares RF 12
+El sistema debe permitir conservar una nota preliminar asociada a una consulta y editarla posteriormente.
+Fuente y necesidad. Comunicación inicial de la cliente sobre notas; plan de gestión, actividad de notas; diagnóstico, apartado 7.1. Necesidad: Conservar notas y preparar su versión formal.
+Prioridad. Alta: la actividad de notas y preferencias del plan incluye notas en el flujo principal.
+Dependencias y estado. Requiere una consulta registrada. Falta precisar la diferencia entre borrador, nota formal y menú. Estado: Propuesto.
+Nota formal RF 13
+Cuando la nutrióloga lo solicite, el sistema debe generar una nota formal a partir de los datos y la nota de la consulta, utilizando la estructura acordada del consultorio.
+Fuente y necesidad. Comunicación inicial de la cliente sobre formalización; diagnóstico, pregunta sobre nota formal y apartado 7.1. Plantilla del consultorio pendiente. Necesidad: Conservar notas y preparar su versión formal.
+Prioridad. Media: responde al planteamiento, pero la plantilla está pendiente.
+Dependencias y estado. Requiere una nota preliminar y una plantilla acordada. Logo, formato de salida y relación con otros documentos siguen pendientes. Estado: Pendiente de definición.
+Propuesta de redacción con IA RF 14
+Cuando la nutrióloga solicite apoyo de IA, el sistema debe presentar la redacción generada como propuesta editable que requiere su aprobación explícita para convertirse en nota final.
+Fuente y necesidad. Plan de gestión, apartado 1, actividad de formalización con IA y arquitectura del apartado 7. Es una función opcional del proyecto. Necesidad: Conservar notas y preparar su versión formal.
+Prioridad. Baja en este documento: función opcional, recortable si afecta el flujo esencial o la fecha. la actividad de formalización con IA tiene prioridad media en el plan; esta propuesta de ajuste requiere ratificación.
+Dependencias y estado. Requiere notas, plantilla y revisión previa del contenido ficticio. Si la IA falla, la redacción manual debe seguir disponible. Estado: Pendiente de definición.
+Lista de pacientes sin consulta reciente RF 15
+Al solicitar la revisión de continuidad, el sistema debe mostrar los pacientes cuya última consulta cumpla el plazo acordado sin nueva consulta, indicando la fecha utilizada.
+Fuente y necesidad. Comunicación inicial de la cliente y entrevista sobre seis meses sin consulta; diagnóstico, brecha de continuidad y apartado 7.1. Necesidad: Revisar continuidad y seguimiento.
+Prioridad. Alta propuesta: atiende el no retorno planteado en comunicación inicial de la cliente. El criterio de seis meses sigue por validar; no se ha demostrado una pérdida mensual de pacientes.
+Dependencias y estado. Requiere fechas de consultas. Deben acordarse el plazo, las excepciones y el tratamiento de pacientes sin consultas, además de ratificar su alcance frente al resumen de seguimiento. Estado: Pendiente de definición.
+Registro del acuerdo de contacto RF 16
+El sistema debe permitir registrar el estado del acuerdo de mensajes de seguimiento y la fecha de su registro, conforme a las opciones que se acuerden con la cliente.
+Fuente y necesidad. Entrevista sobre contacto; diagnóstico, pregunta y brecha sobre acuerdo de mensajes. Registro futuro propuesto por el equipo. Necesidad: Facilitar contacto y aclarar el acuerdo de mensajes.
+Prioridad. Media propuesta: permite distinguir acuerdo registrado y ausencia de registro. No acredita cumplimiento legal ni prueba que hoy no exista autorización verbal.
+Dependencias y estado. Requiere un expediente. Se propone distinguir autorizó, rechazó y sin registro; las opciones y su actualización necesitan acuerdo con la cliente. Estado: Pendiente de definición.
+Acceso a conversación de WhatsApp RF 17
+Cuando la nutrióloga active el contacto de un paciente elegible, el sistema debe abrir una conversación de WhatsApp con su número y un mensaje editable, dejando el envío a la nutrióloga.
+Fuente y necesidad. Plan de gestión, actividad de acceso a WhatsApp; comunicación inicial y entrevista sobre contacto manual. Necesidad: Facilitar contacto y aclarar el acuerdo de mensajes.
+Prioridad. Media: acceso rápido previsto por el plan, con alternativa manual.
+Dependencias y estado. Requiere paciente, número válido y la política de contacto acordada. Puede abrirse desde el expediente sin depender de la lista de no retorno. Estado: Pendiente de definición.
+Documentos esenciales RF 18
+Cuando la nutrióloga seleccione un paciente, el sistema debe permitir consultar los documentos asociados que se definan como esenciales para su seguimiento.
+Fuente y necesidad. Plan de gestión, apartado 1 y actividad de documentos esenciales; diagnóstico, apartado 3.3. Necesidad: Consultar documentos esenciales de seguimiento.
+Prioridad. Media: función incluida en el alcance planificado; faltan tipos y operación concreta.
+Dependencias y estado. Requiere un paciente y documentos definidos como esenciales. Cargar, generar, descargar o eliminar archivos son operaciones pendientes de acuerdo. Estado: Pendiente de definición.
+Resumen de seguimiento RF 19
+Cuando la nutrióloga solicite el resumen de un paciente, el sistema debe presentar los datos de seguimiento acordados a partir de sus consultas registradas.
+Fuente y necesidad. Plan de gestión, apartado 1 y actividad de resumen de seguimiento; diagnóstico, apartado 3.3. Necesidad: Revisar continuidad y seguimiento.
+Prioridad. Media: alcance planificado que debe distinguirse de lista de pacientes sin consulta reciente, una lista de pacientes.
+Dependencias y estado. Requiere consultas, mediciones e historial. Deben acordarse campos, destinatario, periodo y formato del resumen. Estado: Pendiente de definición.
+Constancia de correcciones RF 20
+Cuando se guarde una corrección de un registro, el sistema debe conservar una constancia asociada al registro con la cuenta que corrigió y la fecha y hora del cambio.
+Fuente y necesidad. Plan de gestión, actividad de auditoría y manejo de errores; diagnóstico, pregunta sobre constancia de correcciones. Necesidad: Conservar constancia de correcciones.
+Prioridad. Media propuesta: permite rastrear correcciones; debe confirmarse el detalle de la actividad de auditoría y manejo de errores y su alcance.
+Dependencias y estado. Requiere acceso autorizado y edición de registros. La aplicación a notas o mediciones y la conservación de valores anteriores siguen por definir. Estado: Pendiente de definición.
+11 3 Restricciones y condiciones de calidad
+Datos de trabajo académico RC 01
+Durante recolección, desarrollo, pruebas y demostraciones se deben utilizar datos ficticios o efectivamente anonimizados; no se deben introducir datos reales de pacientes en prompts externos.
+Fuente y necesidad. Plan de gestión, apartados 2 y 13; diagnóstico, decisión sobre datos de desarrollo. Necesidad: Respetar las condiciones y límites del proyecto.
+Prioridad. Alta: condición explícita del plan.
+Dependencias y estado. Afecta la investigación, el desarrollo, las pruebas y las demostraciones. La posible importación de Excel debe respetar esta condición académica. Estado: Definido en el plan.
+Fecha límite del MVP RC 02
+La entrega dla versión inicial debe conservar la fecha del 10/10/2026; los cambios que amenacen el plazo requieren ajustar y registrar el alcance.
+Fuente y necesidad. Plan de gestión, apartados 2, 6 y 11: fecha fija y ajuste documentado de alcance. Necesidad: Respetar las condiciones y límites del proyecto.
+Prioridad. Alta: restricción de planificación.
+Dependencias y estado. Los cambios de alcance se registrarán y el equipo protegerá el flujo esencial antes de incorporar funciones secundarias. Estado: Definido en el plan.
+Responsabilidad de interpretación clínica RC 03
+Los cálculos y propuestas de redacción del sistema deben presentarse como apoyo a la nutrióloga; el sistema no debe generar por cuenta propia diagnósticos ni prescripciones.
+Fuente y necesidad. Plan de gestión, apartados 7 y 13; diagnóstico, apartado 7.2: apoyo y responsabilidad profesional. Necesidad: Respetar las condiciones y límites del proyecto.
+Prioridad. Alta propuesta: delimita el comportamiento automatizado.
+Dependencias y estado. Afecta cálculos y redacción con IA. Permite guardar decisiones escritas por la nutrióloga; limita decisiones clínicas generadas automáticamente. Estado: Propuesto.
+Plataforma planificada RC 04
+La versión inicial debe implementarse como aplicación web con React, Django, Django REST Framework y PostgreSQL, conforme al plan de gestión vigente.
+Fuente y necesidad. Plan de gestión, resumen y apartados 2 y 7; diagnóstico, identificación del producto. Necesidad: Respetar las condiciones y límites del proyecto.
+Prioridad. Alta: compatibilidad con el proyecto de equipo.
+Dependencias y estado. El equipo debe fijar el entorno de uso. Cambiar plataforma o tecnologías requiere revisar el plan y registrar la decisión. Estado: Definido en el plan.
+Protección de contenido ante servicios externos RNF 01
+Antes de enviar contenido a un servicio externo de IA en la versión académica, el sistema debe mostrar el texto y los campos seleccionados y exigir confirmación explícita de que se trata de datos ficticios de prueba.
+Fuente y necesidad. Plan de gestión, apartados 2 y 13: datos ficticios y protección de información. Protocolo de revisión propuesto por el equipo. Necesidad: Proteger acceso y exposición de información.
+Prioridad. Alta: preserva la condición de datos del proyecto.
+Dependencias y estado. Requiere definir qué contenido de prueba se selecciona y cómo se revisa. Confirmar la demostración no autoriza por sí solo el uso de datos clínicos reales. Estado: Pendiente de definición.
+Tiempo de registro de consulta RNF 02
+En el dispositivo y navegador acordados, una persona representativa de la usuaria, con la orientación inicial definida, debe completar el registro del caso ficticio de seguimiento sin ayuda durante la tarea y dentro del tiempo máximo acordado.
+Fuente y necesidad. Entrevista sobre trabajo individual; diagnóstico, preguntas sobre tiempos y conexión. Tiempo aceptable pendiente de acuerdo. Necesidad: Completar tareas dentro de tiempos acordados.
+Prioridad. Media: permite comprobar la tarea de consulta.
+Dependencias y estado. Requiere registro de consulta y mediciones. Antes de probar deben acordarse equipo, orientación inicial, tiempo máximo y condiciones de éxito. Estado: Pendiente de definición.
+Respuesta de búsqueda RNF 03
+Con el conjunto de prueba y el entorno acordados, la búsqueda de un paciente debe mostrar resultados en un máximo propuesto de 3 segundos desde que se solicita.
+Fuente y necesidad. Plan de gestión, actividad de búsqueda. El umbral y la carga de prueba son propuestas del equipo. Necesidad: Completar tareas dentro de tiempos acordados.
+Prioridad. Media propuesta: afecta la localización del paciente; requiere ratificación.
+Dependencias y estado. Requiere la búsqueda funcionando. Se propone probar con 300 pacientes ficticios y cinco consultas por paciente; carga, entorno y umbral necesitan ratificación. Estado: Pendiente de definición.
+Respuesta de comparación RNF 04
+Con el conjunto de prueba y el entorno acordados, la comparación de mediciones debe mostrarse en un máximo propuesto de 3 segundos desde que se solicita.
+Fuente y necesidad. Plan de gestión, actividad de comparación. El umbral y la carga de prueba son propuestas del equipo. Necesidad: Completar tareas dentro de tiempos acordados.
+Prioridad. Media propuesta: verifica la comparación por separado de la búsqueda.
+Dependencias y estado. Requiere comparación de mediciones. Se propone la misma carga de búsqueda, pero su tiempo y corrección se comprueban por separado. Estado: Pendiente de definición.
+11 4 Funciones fuera del alcance
+El plan excluye catálogo y comparación de productos, reconocimiento de etiquetas por fotografía, recomendaciones comerciales y alianzas. Tampoco compromete agenda, pagos, facturación ni mensajería automática o masiva. El acceso previsto a WhatsApp abre una conversación, mientras que el envío queda a cargo de la nutrióloga.
+La importación de Excel y el trabajo sin conexión siguen sin especificación aprobada. La aplicación no debe prometerlos sin investigar su necesidad y registrar el cambio de alcance. Los documentos esenciales y el resumen sí permanecen visibles en el catálogo porque forman parte del plan, aunque su contenido siga pendiente de definición.
+12 Validación y trazabilidad
+12 1 Pruebas y criterios de aceptación
+Un criterio de aceptación describe qué resultado debe observarse para comprobar un requisito. Las pruebas usan datos ficticios y distinguen una situación normal de una excepción. Los campos, reglas o umbrales pendientes deben acordarse antes de declarar que el requisito está aceptado.
+Cada prueba aparece bajo el nombre del requisito que comprueba. No constituye una prueba ya ejecutada. Las fechas de los casos ficticios sirven únicamente como ejemplos de funcionamiento y no reemplazan las fechas reales de actividades.
+Autenticación RF 01
+Prueba normal. Dada una cuenta ficticia autorizada, cuando ingresa credenciales correctas, entonces obtiene acceso a las funciones autorizadas.
+Excepción. Con credenciales incorrectas o sin sesión, un intento de abrir un expediente o consultar su información mediante la API se rechaza sin revelar datos.
+Condiciones por confirmar. Cuenta demo ficticia. No se presupone un tipo de mecanismo de sesión.
+Alta de paciente RF 02
+Prueba normal. Dados los campos obligatorios acordados, cuando se guarda el paciente, entonces se crea un expediente con identificador propio.
+Excepción. Al faltar un campo obligatorio se indica cuál falta y no se crea el expediente definitivo. Dos personas con igual nombre no se confunden por el nombre.
+Condiciones por confirmar. Campos de los registros debe definir campos y duplicados. Nombre y teléfono no se declaran obligatorios sin acuerdo.
+Búsqueda de paciente RF 03
+Prueba normal. Dados Ana Ruiz, Ana Rivas y Beto Mora ficticios, cuando se busca ana, entonces se muestran las dos coincidencias y se puede abrir cada expediente.
+Excepción. Una búsqueda sin coincidencias muestra sin resultados. Nombres iguales se distinguen con el identificador o dato de diferenciación acordado.
+Condiciones por confirmar. El equipo deberá confirmar si la búsqueda ignora las mayúsculas y los acentos. Es una propuesta de comportamiento.
+Corrección de datos del paciente RF 04
+Prueba normal. Dado un paciente con contacto incorrecto, cuando se guarda la corrección válida, entonces al reabrir aparece el contacto corregido en el mismo expediente.
+Excepción. Una corrección que infrinja campos obligatorios se rechaza indicando el campo y conserva el valor guardado previamente.
+Condiciones por confirmar. Procedimiento de corrección y campos de los registros. La prueba de constancia de correcciones comprobará el registro del cambio, si se aprueba esa función.
+Historia clínica nutricia RF 05
+Prueba normal. Dadas la plantilla y las secciones acordadas para primera consulta, cuando se guarda una historia ficticia, entonces su contenido aparece asociado al paciente y a la consulta.
+Excepción. Los campos obligatorios faltantes se indican. Guardar de forma parcial es opción por validar; si se adopta, el estado incompleto debe ser distinguible.
+Condiciones por confirmar. Formatos del consultorio, campos de los registros y información de primera consulta. No se declara obligatorio un formulario extenso aún desconocido.
+Registro de consulta RF 06
+Prueba normal. Dado un paciente, cuando se registra una consulta con fecha, entonces queda asociada a ese expediente y aparece en su historial.
+Excepción. Sin fecha o sin paciente seleccionado no se guarda y se explica el dato faltante. Una consulta de otro paciente no aparece en este expediente.
+Condiciones por confirmar. Se utilizarán fechas ficticias; el equipo deberá validar la política para fechas futuras y varias consultas en un día.
+Captura de mediciones RF 07
+Prueba normal. Dada una consulta y el esquema de indicadores acordado, cuando se registra una medición válida, entonces se conservan su valor, indicador y unidad.
+Excepción. Un valor no numérico se rechaza. Un indicador no obtenido se distingue de cero y se conserva como sin dato si se acuerda captura incompleta.
+Condiciones por confirmar. Se deberán acordar las unidades, los rangos y la precisión de los indicadores. No se impondrá un rango clínico sin fuente ni se confundirá la unidad kg con un porcentaje.
+Comparación entre consultas RF 08
+Prueba normal. Dadas dos mediciones comparables del mismo indicador, 30.0 y 28.5 en la misma unidad, cuando se compara actual menos referencia, entonces el resultado es -1.5 con su unidad y fechas. Para 35.0 y 35.9 el resultado es +0.9.
+Excepción. Sin referencia, con dato faltante o unidades incompatibles no se inventa cero ni se calcula una diferencia válida; se informa el motivo por indicador.
+Condiciones por confirmar. Si son porcentajes, -1.5 corresponde a puntos porcentuales; no a una variación relativa de -1.5 %. indicadores y unidades de medición y consulta usada como referencia deben cerrar referencia y redondeo.
+Historial de consultas RF 09
+Prueba normal. Dadas tres consultas ficticias del 10/01/2026, 12/02/2026 y 15/03/2026, cuando se abre el historial, entonces se muestran en el orden acordado y con sus mediciones.
+Excepción. Sin consultas se muestra un estado vacío; mediciones ausentes no se reemplazan por valores ficticios.
+Condiciones por confirmar. Orden descendente propuesto: 15/03, 12/02, 10/01. La propuesta deberá ratificarse en la sesión de validación prevista.
+Datos alimentarios del paciente RF 10
+Prueba normal. Dado un paciente ficticio, cuando se guardan alergia a nuez, preferencia por mango y una restricción acordada, entonces permanecen diferenciadas en su expediente.
+Excepción. La ausencia declarada de alergias se distingue de información no registrada. No se transforma un alimento rechazado en alergia.
+Condiciones por confirmar. Campos de los registros: vocabulario y campo de preferencias o rechazos; propuesta por validar.
+Consulta de datos alimentarios RF 11
+Prueba normal. Dado un paciente con alergia a nuez registrada, cuando se abre su consulta, entonces esa información es visible en la vista de consulta.
+Excepción. Si la información no fue registrada se indica ese estado sin afirmar que no existen alergias.
+Condiciones por confirmar. La regla sobre información alimentaria y su disposición deberán validarse en la sesión propuesta.
+Notas preliminares RF 12
+Prueba normal. Dada una consulta, cuando se guarda y reabre una nota preliminar, entonces se recupera el mismo contenido y puede editarse.
+Excepción. Si se intenta salir con cambios no guardados, se avisa antes de descartarlos, como comportamiento propuesto para validar.
+Condiciones por confirmar. El equipo deberá confirmar el formato de la nota y el significado de borrador en la estructura de la nota formal.
+Nota formal RF 13
+Prueba normal. Dadas una plantilla aprobada y una nota ficticia, cuando se genera la versión formal, entonces respeta las secciones acordadas e incluye los datos de esa consulta.
+Excepción. Si falta la plantilla o un dato requerido, se informa qué falta y se conserva el borrador, sin crear una nota final incompleta como si estuviera revisada.
+Condiciones por confirmar. Estructura de la nota formal, formatos del consultorio y documentos y resumen de seguimiento; logo y archivo de salida pendientes. Criterio condicionado.
+Propuesta de redacción con IA RF 14
+Prueba normal. Dada una nota ficticia y el servicio de prueba habilitado, cuando se solicita apoyo de IA, entonces la propuesta aparece editable y solo pasa a final tras la aprobación explícita de la nutrióloga.
+Excepción. Si se rechaza la propuesta o el servicio falla, no se guarda como final y permanece la posibilidad de usar la nota manual.
+Condiciones por confirmar. Uso de IA con datos ficticios y protección de contenido ante servicios externos. El equipo deberá revisar una muestra con una omisión o un dato agregado para verificar la corrección humana. La aprobación no es automática.
+Lista de pacientes sin consulta reciente RF 15
+Prueba normal. Si en la sesión de validación se acuerdan seis meses calendario, dada la fecha ficticia de evaluación 30/09/2026 y últimas consultas 30/03/2026, 01/04/2026 y 15/01/2026, entonces aparecen el primer y tercer paciente y no el segundo.
+Excepción. El tratamiento de un paciente sin consultas deberá acordarse con la nutrióloga. Fin de mes y meses de distinta duración requieren ejemplos acordados; no se usa siempre 180 días.
+Condiciones por confirmar. Revisión de continuidad y plazo y excepciones de no retorno. 01/04 está a menos de seis meses. No se usa la fecha ficticia como fecha de una sesión real.
+Registro del acuerdo de contacto RF 16
+Prueba normal. Dadas las opciones de acuerdo aprobadas, cuando se registra un estado y su fecha, entonces ambos se recuperan al reabrir el expediente.
+Excepción. Sin constancia se muestra sin registro, no autorizado ni rechazado por inferencia. Si se registra rechazo, debe quedar distinguible de ausencia de registro.
+Condiciones por confirmar. Acuerdo de mensajes debe confirmar estados, fecha y actualización del acuerdo.
+Acceso a conversación de WhatsApp RF 17
+Prueba normal. Dado un paciente ficticio elegible según la política acordada y un número de prueba válido, cuando se activa el acceso, entonces se abre la conversación y el mensaje permanece editable y sin envío automático.
+Excepción. Sin número válido no se abre la acción y se explica el motivo. Rechazo o ausencia de autorización se tratan según la política de contacto acordada; no se dan por permitidos.
+Condiciones por confirmar. El equipo deberá realizar la prueba con un número de ensayo, sin contactar a pacientes reales. La lista de pacientes sin consulta reciente no es un requisito previo para abrir la conversación desde el expediente.
+Documentos esenciales RF 18
+Prueba normal. Dado un documento ficticio del tipo esencial acordado asociado a un paciente, cuando se solicita su consulta, entonces se recupera desde ese expediente.
+Excepción. No se muestran documentos de otro paciente; una ausencia se indica sin fabricar el contenido.
+Condiciones por confirmar. Documentos y resumen de seguimiento debe definir tipos, operación y relación con la nota formal. Criterio condicionado, no prueba de carga o exportación todavía.
+Resumen de seguimiento RF 19
+Prueba normal. Dados consultas y campos de resumen acordados, cuando se solicita el resumen del paciente, entonces los datos coinciden con sus registros y señalan el periodo o fecha de corte utilizado.
+Excepción. Datos no disponibles se indican sin dato; no se completan con inferencias clínicas.
+Condiciones por confirmar. Documentos y resumen de seguimiento: destinatario, campos, periodo y formato. Criterio condicionado.
+Constancia de correcciones RF 20
+Prueba normal. Dada una corrección autorizada, cuando se guarda, entonces se localiza su constancia con cuenta, fecha y hora y referencia al registro cambiado.
+Excepción. Un cambio rechazado no se presenta como corrección realizada. Intentos y errores pueden registrarse aparte si se acuerda.
+Condiciones por confirmar. Procedimiento de corrección: extensión a consultas, notas o mediciones y conservación de valores previos. Propuesta de detalle de la actividad de auditoría y manejo de errores.
+Datos de trabajo académico RC 01
+Prueba normal. Dado el conjunto de datos y material de prueba, cuando se revisa antes de su uso, entonces contiene solo datos ficticios o anonimizados y ningún dato real de paciente en prompts externos.
+Excepción. Un archivo identificable se retira de la actividad y se solicita copia vacía o ficticia.
+Condiciones por confirmar. Revisión de muestras, archivos y solicitudes de prueba; no equivale a prueba de anonimización definitiva sin revisar el contenido.
+Fecha límite del MVP RC 02
+Prueba normal. Dado el calendario del proyecto, cuando se revisan cambios, entonces la entrega mantiene 10/10/2026 y el alcance recortado queda documentado con responsable.
+Excepción. Una propuesta incompatible con la fecha no se incorpora sin acuerdo de ajuste de alcance.
+Condiciones por confirmar. Control de planificación; no se considera una prueba funcional de la aplicación.
+Responsabilidad de interpretación clínica RC 03
+Prueba normal. Dados cálculo y propuesta de nota ficticios, cuando se revisan las salidas, entonces se presentan como apoyo y no crean diagnósticos o prescripciones automáticamente.
+Excepción. Registrar una decisión escrita por la nutrióloga no se bloquea por esta restricción. La IA no agrega una prescripción por su cuenta.
+Condiciones por confirmar. El equipo deberá revisar la comparación entre consultas, la propuesta de redacción con IA y las muestras con contenido agregado.
+Plataforma planificada RC 04
+Prueba normal. Dado la versión inicial demostrable y su configuración, cuando se revisan arquitectura y ejecución, entonces corresponde a la aplicación web y tecnologías previstas en plan de gestión.
+Excepción. Una variación del plan requiere decisión y actualización del alcance, no se oculta como implementación equivalente.
+Condiciones por confirmar. Revisión de documentación, dependencias y demostración; entorno concreto en equipo y conexión.
+Protección de contenido ante servicios externos RNF 01
+Prueba normal. Dada una nota ficticia seleccionada, cuando se solicita apoyo de IA, entonces se muestran texto y campos que se enviarán y la solicitud solo se ejecuta después de confirmar el uso de datos ficticios de prueba.
+Excepción. Sin confirmación o al cancelar la revisión no se envía la solicitud; la función manual de notas permanece disponible. Si se identifica contenido real se retira del ensayo conforme a datos de trabajo académico.
+Condiciones por confirmar. El equipo deberá verificar el contenido transmitido y su coincidencia con lo mostrado. La confirmación es un control de revisión y no detecta automáticamente datos reales ni autoriza el uso clínico real.
+Tiempo de registro de consulta RNF 02
+Prueba normal. Dada una usuaria representativa con orientación y entorno acordados, cuando registra el caso ficticio sin ayuda durante la tarea, entonces guarda correctamente la consulta en el tiempo máximo acordado.
+Excepción. Si necesita ayuda, excede el tiempo máximo acordado o guarda datos distintos, se registra el fallo y el paso afectado.
+Condiciones por confirmar. Equipo y conexión y tiempo de registro. Tiempo máximo y número de participantes pendientes; no puede emitirse conformidad antes de fijarlos.
+Respuesta de búsqueda RNF 03
+Prueba normal. Si se acepta la propuesta de carga, con 300 pacientes ficticios y cinco consultas por paciente, cuando se solicita una búsqueda, entonces los resultados aparecen en máximo 3 segundos en el entorno fijado.
+Excepción. Si excede 3 segundos o devuelve coincidencias incorrectas se registra incumplimiento.
+Condiciones por confirmar. Antes de ejecutar la prueba, el equipo deberá acordar el dispositivo, el navegador, la conexión, el estado de la caché y las repeticiones. El tiempo se medirá desde la solicitud hasta la visualización.
+Respuesta de comparación RNF 04
+Prueba normal. Si se acepta la propuesta de carga y umbral, con el mismo conjunto de prueba, cuando se solicita una comparación válida, entonces aparece el resultado correcto en máximo 3 segundos.
+Excepción. Un resultado numérico incorrecto incumple aunque sea rápido; con valores no comparables debe aparecer el aviso correspondiente.
+Condiciones por confirmar. Protocolo separado de búsqueda; entorno y repeticiones por acordar en equipo y conexión y tiempo de registro.
+12 2 Revisión con la nutrióloga
+La validación consiste en presentar el proceso entendido, las propuestas y las pruebas con ejemplos ficticios. La nutrióloga podrá confirmar, pedir ajustes o rechazar un comportamiento. El equipo y el docente revisarán las restricciones académicas y la factibilidad. La opinión de una IA no sustituye esta revisión.
+Proceso y expediente. El equipo presentará su interpretación del proceso. ¿Qué aspectos considera correctos la nutrióloga, cuáles faltan y cuáles modificaría?
+Mediciones. Con estos valores ficticios, ¿qué referencia utilizaría la nutrióloga y qué esperaría ver si falta una medición?
+Información alimentaria. ¿Cómo utiliza la nutrióloga las alergias, las preferencias y las restricciones en cada consulta?
+Continuidad. Con estas fechas ficticias, ¿qué pacientes revisaría la nutrióloga y cómo decidiría el siguiente paso?
+Contacto. ¿Cómo conoce la nutrióloga la preferencia de mensajes y qué haría si no existe constancia?
+Notas y documentos. ¿Qué información debe conservar la nota, qué documentos necesita la nutrióloga y qué debe incluir el resumen?
+Tiempo y correcciones. ¿Qué tiempo sería aceptable para esta tarea y qué constancia necesita la nutrióloga cuando se corrige un dato?
+IA opcional. Con una nota ficticia, ¿qué revisaría la nutrióloga y cómo trataría una propuesta que omite o agrega información?
+12 3 Registro de validación pendiente
+Dato del registro
+Situación actual
+Fecha y medio
+06/10/2026 por videollamada, propuestos y por confirmar. Sesión todavía no realizada.
+Participante del consultorio
+Nutrióloga titular, asistencia pendiente de confirmar.
+Equipo
+Diana, Genny, Jilder y Luisa propuestos; Luisa registrará resultados.
+Contenido por revisar
+Funciones propuestas, condiciones de calidad, reglas de consulta y pruebas. El equipo revisará restricciones y prioridad.
+Acuerdos y desacuerdos
+Sin resultados registrados. Se anotarán por requisito durante la sesión.
+Preguntas nuevas
+Se incorporarán solo si aparecen durante la revisión; actualmente se conservan las preguntas del apartado 10.4.
+Pendientes previos
+Formatos, unidades, plantilla, entorno de uso y registro original de entrevista.
+Cambios y versión posterior
+Se registrarán después de la sesión. La versión 0.2 está prevista para 08/10/2026.
+
+Por cada requisito se registrará: participante, fecha efectiva, versión revisada, respuesta, acuerdo o desacuerdo, motivo, cambio solicitado, responsable y estado final. Una respuesta no obtenida permanece pendiente; no se completa con suposiciones del equipo.
+12 4 Matriz de trazabilidad
+La trazabilidad permite seguir el origen de una propuesta hasta la prueba con la que se comprobará y la persona que la validará. La matriz utiliza nombres completos para que el recorrido sea entendible. Todas las filas corresponden a esta versión 0.1.2; la validación con la nutrióloga sigue pendiente.
+Expediente y registro de consultas
+Requisito
+Fuente y necesidad
+Prueba del apartado 12 1
+Validación
+AutenticaciónRF-01
+Plan: inicio de sesión.Proteger acceso y exposición de información.
+Acceso autorizado y rechazo sin sesión.
+Nutrióloga; pendiente.
+Alta de pacienteRF-02
+Entrevista: pacientes en Excel; plan: alta.Relacionar pacientes, consultas e historial.
+Expediente único; datos obligatorios.
+Nutrióloga; pendiente.
+Búsqueda de pacienteRF-03
+Plan: lista y búsqueda; diagnóstico: localizar expediente.Relacionar pacientes, consultas e historial.
+Coincidencias y sin resultados.
+Nutrióloga; pendiente.
+Corrección de datos del pacienteRF-04
+Plan: edición; diagnóstico: correcciones.Relacionar pacientes, consultas e historial.
+Cambio válido y rechazo del inválido.
+Nutrióloga; pendiente.
+Historia clínica nutriciaRF-05
+Entrevista: historia clínica; plan: expediente.Registrar información de primera consulta.
+Historia asociada; faltantes visibles.
+Nutrióloga; pendiente.
+Registro de consultaRF-06
+Plan: consultas; entrevista: registros.Relacionar pacientes, consultas e historial.
+Consulta con paciente y fecha.
+Nutrióloga; pendiente.
+Captura de medicionesRF-07
+Plan: mediciones; detalle de captura reportado.Comparar mediciones de consultas distintas.
+Valor con unidad; ausencia distinta de cero.
+Nutrióloga; pendiente.
+
+Evolución e información de consulta
+Requisito
+Fuente y necesidad
+Prueba del apartado 12 1
+Validación
+Comparación entre consultasRF-08
+Comunicación de la cliente y plan: comparar evolución.Comparar mediciones de consultas distintas.
+Diferencia correcta; aviso si no comparable.
+Nutrióloga; pendiente.
+Historial de consultasRF-09
+Entrevista y plan: historial.Relacionar pacientes, consultas e historial.
+Orden por fecha y caso sin consultas.
+Nutrióloga; pendiente.
+Datos alimentarios del pacienteRF-10
+Comunicación y plan: información alimentaria.Conservar información alimentaria relevante.
+Datos diferenciados y ausencia explícita.
+Nutrióloga; pendiente.
+Consulta de datos alimentariosRF-11
+Información alimentaria y regla candidata de consulta.Conservar información alimentaria relevante.
+Información visible en consulta.
+Nutrióloga; pendiente.
+Notas preliminaresRF-12
+Comunicación y plan: notas.Conservar notas y preparar su versión formal.
+Nota recuperable y edición.
+Nutrióloga; pendiente.
+Nota formalRF-13
+Comunicación: nota formal; plantilla pendiente.Conservar notas y preparar su versión formal.
+Plantilla acordada; conservación de borrador.
+Nutrióloga; pendiente.
+Propuesta de redacción con IARF-14
+Plan: IA opcional y revisión humana.Conservar notas y preparar su versión formal.
+Propuesta editable; revisión y aprobación.
+Nutrióloga; pendiente.
+
+Seguimiento y documentos
+Requisito
+Fuente y necesidad
+Prueba del apartado 12 1
+Validación
+Lista de pacientes sin consulta recienteRF-15
+Comunicación y entrevista: continuidad y seis meses.Revisar continuidad y seguimiento.
+Casos con menos y más del plazo.
+Nutrióloga; pendiente.
+Registro del acuerdo de contactoRF-16
+Diagnóstico: aclarar acuerdo de contacto.Facilitar contacto y aclarar el acuerdo de mensajes.
+Estado y fecha; sin registro distinguible.
+Nutrióloga; pendiente.
+Acceso a conversación de WhatsAppRF-17
+Plan: WhatsApp; entrevista: contacto manual.Facilitar contacto y aclarar el acuerdo de mensajes.
+Conversación editable sin envío automático.
+Nutrióloga; pendiente.
+Documentos esencialesRF-18
+Plan: documentos esenciales.Consultar documentos esenciales de seguimiento.
+Documento del paciente; ausencia visible.
+Nutrióloga; pendiente.
+Resumen de seguimientoRF-19
+Plan: resumen de seguimiento.Revisar continuidad y seguimiento.
+Resumen coincide con registros.
+Nutrióloga; pendiente.
+Constancia de correccionesRF-20
+Plan: auditoría; diagnóstico: correcciones.Conservar constancia de correcciones.
+Cuenta, fecha, hora y registro cambiado.
+Nutrióloga; pendiente.
+
+Restricciones y calidad
+Requisito
+Fuente y necesidad
+Prueba del apartado 12 1
+Validación
+Datos de trabajo académicoRC-01
+Plan: datos ficticios y protección.Respetar las condiciones y límites del proyecto.
+Revisión de datos y material académico.
+Revisión del equipo; definido en plan.
+Fecha límite del MVPRC-02
+Plan: calendario y cambios.Respetar las condiciones y límites del proyecto.
+Fecha conservada y alcance documentado.
+Revisión del equipo; definido en plan.
+Responsabilidad de interpretación clínicaRC-03
+Plan y diagnóstico: responsabilidad profesional.Respetar las condiciones y límites del proyecto.
+Sin diagnóstico automático.
+Nutrióloga; pendiente.
+Plataforma planificadaRC-04
+Plan: aplicación web y tecnologías.Respetar las condiciones y límites del proyecto.
+Revisión de arquitectura y demostración.
+Revisión del equipo; definido en plan.
+Protección de contenido ante servicios externosRNF-01
+Plan: datos de prueba; revisión previa propuesta.Proteger acceso y exposición de información.
+Contenido visible y confirmación previa.
+Nutrióloga; pendiente.
+Tiempo de registro de consultaRNF-02
+Trabajo individual; tiempo por acordar.Completar tareas dentro de tiempos acordados.
+Tarea completa dentro del tiempo acordado.
+Nutrióloga; pendiente.
+Respuesta de búsquedaRNF-03
+Plan: búsqueda; tiempo propuesto.Completar tareas dentro de tiempos acordados.
+Búsqueda dentro del umbral propuesto.
+Nutrióloga; pendiente.
+Respuesta de comparaciónRNF-04
+Plan: comparación; tiempo propuesto.Completar tareas dentro de tiempos acordados.
+Comparación correcta dentro del umbral.
+Nutrióloga; pendiente.
+
+12 5 Control de cambios
+Versión y fecha
+Responsable
+Motivo y alcance del cambio
+0.1 · 30/09/2026
+Equipo, según el documento original.
+Primera versión de los puntos 9 al 12 basada en el diagnóstico anterior y la entrevista consignada.
+0.1.1 · 30/09/2026
+Equipo para revisión.
+Revisión de referencias, estados, fuentes, dependencias, criterios y cobertura del plan. No registra aprobación de la cliente.
+0.1.2 · 30/09/2026
+Equipo para revisión.
+Actualización de la descripción de requisitos, fuentes, dependencias, pruebas y estados de validación.
+0.2 · prevista 08/10/2026
+Equipo.
+El equipo incorporará los resultados auténticos de recolección y validación, las decisiones por requisito y los cambios de las pruebas. Su ejecución no se da por realizada.
+
+Referencias
+Documento de requerimientos original. Dossier_Requerimientos_NutriGest_Documento2 (2) (1).docx, versión 0.1, 30 de septiembre de 2026. Apartados 9 al 12. Fuente de los datos de entrevista y fechas consignados por el equipo.
+Diagnóstico del proyecto NutriGest. Documento 1, versión 1.4, 30 de septiembre de 2026. Apartados 2 (problema y fuentes), 3 (actores y alcance), 5 (información), 7 (proceso actual) y 8 (brechas y versiones). Archivo Diagnostico_NutriGest_Documento_1_Fechas_Actualizadas.docx.
+Plan de gestión del proyecto GestNutri. GestNutri_Plan_Gestion (2).pdf. Apartados 1 y 2 (alcance y condiciones), 5 (historias de trabajo), 6 (calendario), 7 (arquitectura), 11 y 12 (cambios y pruebas) y 13 (seguridad). NutriGest y GestNutri se refieren al mismo proyecto; la denominación definitiva debe unificarse.
+Sitio del profesor de Análisis y Diseño de Software UTM. Unidad I, versión 2. Tema 4, Recolección de requerimientos, y Tema 5, Especificación y validación. Listas de requisitos de los puntos 9 al 12 y protocolo de defensa. https://analisis-diseno-software-utm-v2.carlos-canto-bonilla.chatgpt.site/
+OCDE. Privacy principles. Referencia general sobre limitar la recopilación, explicar la finalidad y proteger la información de la investigación. https://www.oecd.org/en/topics/privacy-principles.html
+Informe previo del proyecto NutriGest. Se menciona en el diagnóstico y en el documento original. Su archivo y versión siguen por localizar; sus planteamientos no se utilizan como prueba única de la práctica del consultorio.

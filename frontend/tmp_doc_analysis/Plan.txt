@@ -1,0 +1,595 @@
+Resumen
+         Este plan establece cómo se organizará, desarrollará, integrará y controlará GestNutri,
+
+una aplicación web para la gestión y seguimiento de pacientes de nutrición. El equipo estará
+formado por cuatro integrantes que trabajarán desde computadoras diferentes sobre un único
+repositorio de GitHub. El proyecto utilizará Scrum para organizar el trabajo en Sprints y tendrá
+como fecha límite el 10 de octubre de 2026. La solución se desarrollará con React, Django,
+Django REST Framework y PostgreSQL.
+
+         La inteligencia artificial se utilizará en dos niveles claramente diferenciados. Primero,
+cada integrante podrá utilizar IA en su propia computadora como apoyo para analizar, programar,
+probar, documentar y revisar su tarea. Segundo, existirá un Agente Orquestador con contexto
+global del proyecto, encargado de relacionar el trabajo publicado por los integrantes, detectar
+dependencias e inconsistencias y sugerir acciones de integración. El Agente Orquestador no
+sustituye GitHub, Scrum ni la revisión humana.
+
+                                                                                                                               1
+                                            Índice
+
+Resumen                                             2
+
+1. Descripción, objetivos y alcance                 4
+
+2. Supuestos y restricciones                        4
+
+3. Organización del Scrum Team                      5
+
+4. Forma de trabajo con Scrum                       6
+
+5. Product Backlog inicial y trazabilidad           6
+
+6. Plan de Sprints hasta el 10 de octubre           7
+
+7. Arquitectura y tecnologías                       8
+
+8. Desarrollo distribuido con Git y GitHub          8
+
+9. Forma de trabajo con inteligencia artificial     9
+
+10. Agente Orquestador con contexto global          10
+
+11. Gestión de requisitos y cambios                 11
+
+12. Gestión de calidad, pruebas y CI                11
+
+13. Seguridad, riesgos y comunicación               12
+
+14. Seguimiento y métricas                          13
+
+15. Entregables y criterios de aceptación           13
+
+16. Conclusiones                                    14
+
+Referencias                                         14
+
+                                                        2
+              Plan de gestión de proyectos de software
+
+1. Descripción, objetivos y alcance
+
+GestNutri es una aplicación web orientada a profesionales de nutrición. Su propósito es
+
+centralizar la información de los pacientes y facilitar el seguimiento entre consultas. El proyecto
+
+responde a la necesidad de reducir la dispersión de información en notas, archivos y
+
+herramientas independientes, y de disponer de una visión clara de la evolución de cada paciente.
+
+El objetivo general es desarrollar, integrar y validar antes del 10 de octubre de 2026 un
+
+producto mínimo viable (MVP) que permita administrar pacientes, registrar consultas y
+
+mediciones, consultar historial, comparar automáticamente la evolución y utilizar inteligencia
+
+artificial de forma controlada para apoyar la redacción de notas.
+
+El Product Goal es disponer, al cierre del proyecto, de una versión demostrable de
+
+GestNutri que permita al nutricionista completar el flujo básico de seguimiento de un paciente
+
+desde su registro hasta la revisión de su evolución, manteniendo trazabilidad del desarrollo,
+
+seguridad básica y revisión humana de las funciones asistidas por IA.
+
+Incluido en el MVP                              Fuera del MVP
+
+Autenticación; lista, búsqueda, alta y edición  Catálogo y comparador de productos;
+de pacientes; expediente; contacto y            reconocimiento de etiquetas por fotografía;
+WhatsApp; consultas; mediciones; historial;     recomendaciones comerciales; alianzas o
+comparación de progreso; notas, alergias y      patrocinios; y funciones que no sean
+restricciones; documentos esenciales;           indispensables para validar el flujo principal.
+resumen de seguimiento; formalización
+opcional de notas con IA.
+
+2. Supuestos y restricciones
+
+Elemento                                        Definición
+Fecha límite                                    10 de octubre de 2026.
+Equipo                                          Cuatro integrantes trabajando desde
+                                                computadoras diferentes.
+
+                                                                                                     3
+Producto                                       Un solo proyecto GestNutri y un único
+Marco de trabajo                               repositorio central en GitHub.
+Tecnologías                                    Scrum con tres Sprints cortos por el tiempo
+IA                                             disponible.
+Datos de desarrollo                            React, Django, Django REST Framework y
+Prioridad                                      PostgreSQL.
+                                               IA de apoyo en cada computadora y un
+                                               Agente Orquestador con contexto global.
+                                               Datos ficticios o anonimizados; no se
+                                               utilizarán datos reales en prompts externos.
+                                               Proteger las funciones esenciales del MVP
+                                               ante cualquier desviación de tiempo.
+
+3. Organización del Scrum Team
+
+El Scrum Team estará formado por un Product Owner, un Scrum Master y los
+
+Developers. Los cuatro integrantes participan como Developers en la creación del Increment; las
+
+responsabilidades Scrum coexistirán con las especialidades técnicas y no generarán subequipos
+
+independientes (Schwaber & Sutherland, 2020).
+
+Responsabilidad      Asignación                     Función
+Product Owner        Por definir por el equipo      Ordenar el Product Backlog,
+                     antes del Sprint 1 / Rotativo  aclarar necesidades y criterios
+Scrum Master                                        de aceptación, mantener el
+                     Por definir por el equipo      Product Goal y priorizar
+Frontend             antes del Sprint 1 / Rotativo  valor.
+Backend
+                     Jilder Alex Dionisio Rojas     Facilitar Scrum, ayudar a
+                     Genny D. Navarrete Aguilar     eliminar impedimentos,
+                                                    cuidar los eventos y promover
+                                                    mejora continua, trabaja de la
+                                                    mano con el agente
+                                                    orquestador
+
+                                                    React, interfaz e integración
+                                                    con la API.
+
+                                                    Django, Django REST
+                                                    Framework, endpoints,
+                                                    permisos y lógica de negocio.
+
+                                                                                               4
+Datos / Backend                 Diana Gpe. Bojorquez Cetina  PostgreSQL, modelos,
+QA / CI                         Luisa Fernanda Ortiz Baeza   migraciones y consistencia de
+                                                             datos.
+
+                                                             Pruebas, GitHub Actions,
+                                                             calidad y apoyo técnico al
+                                                             Agente Orquestador.
+
+         La responsabilidad final sobre el Increment es colectiva. Una especialidad indica quién
+lidera técnicamente una actividad, pero no significa que esa persona sea la única autorizada para
+trabajar en ella.
+
+4. Forma de trabajo con Scrum
+
+Cada Sprint tendrá un Sprint Goal y deberá producir un Increment integrado y
+
+demostrable. En Sprint Planning se seleccionarán las historias prioritarias y se identificarán
+
+dependencias; la Daily Scrum, de hasta 15 minutos en los días de trabajo, permitirá inspeccionar
+
+el avance y ajustar el plan; la Sprint Review demostrará el resultado; y la Sprint Retrospective
+
+identificará mejoras para el siguiente ciclo.
+
+Artefacto / compromiso                         Uso en GestNutri
+Product Backlog / Product Goal                 Concentra las historias del producto y
+                                               mantiene visible el objetivo general del MVP.
+Sprint Backlog / Sprint Goal                   Contiene las historias y tareas seleccionadas
+                                               para cumplir el objetivo del Sprint.
+Increment / Definition of Done                 Resultado integrado que cumple criterios de
+                                               aceptación, pruebas, revisión y condiciones de
+                                               calidad.
+
+         Una historia estará preparada para un Sprint cuando sea comprensible, tenga criterios de
+aceptación, dependencias identificadas y datos de prueba. Estará terminada cuando cumpla los
+
+                                                                                                   5
+criterios, pase las pruebas y CI, no incluya secretos, tenga migraciones o documentación
+necesarias y haya recibido revisión humana mediante Pull Request.
+
+5. Product Backlog inicial y trazabilidad
+
+ID     Historia        Prioridad           Pts.  Sprint
+HU-01                                            1
+HU-02  Inicio de sesión Alta               3     1
+HU-03                                            1
+HU-04  seguro                                    1
+HU-05                                            2
+HU-06  Lista y búsqueda Alta               5     2
+HU-07                                            2
+HU-08  de pacientes                              2
+HU-09                                            2
+HU-10  Crear y editar Alta                 5     2
+
+HU-11  paciente                                  3
+HU-12                                            3
+HU-13  Expediente del Alta                 5     3
+HU-14                                            3
+       paciente
+
+       Acceso rápido a Media               2
+
+       WhatsApp
+
+       Registrar       Alta                5
+
+       consulta
+
+       Historial de    Alta                3
+
+       consultas
+
+       Registrar       Alta                3
+
+       mediciones
+
+       Comparar        Alta                5
+
+       evolución
+
+       Notas,          Alta                3
+
+       preferencias y
+
+       restricciones
+
+       Formalizar notas Media              8
+
+       con IA
+
+       Resumen de      Media               5
+
+       seguimiento
+
+       Documentos      Media               5
+
+       esenciales
+
+       Auditoría y     Media               5
+
+       manejo de
+
+       errores
+
+                                                                                          6
+         Los puntos son una estimación inicial y deberán revisarse durante el refinamiento. Si la
+capacidad real demuestra que el Sprint 2 o 3 está sobrecargado, el Product Owner reordenará
+historias de prioridad media antes de comprometer la fecha de entrega.
+
+6. Plan de Sprints hasta el 10 de octubre
+
+El calendario toma como inicio operativo el 21 de septiembre de 2026 y como fecha
+
+límite el 10 de octubre. El Agente Orquestador comienza desde el Sprint 1 porque su propósito
+
+es acompañar y coordinar el desarrollo distribuido, no incorporarse únicamente al final.
+
+Sprint / fechas  Sprint Goal               Historias y trabajo     Resultado
+Sprint 1         Establecer la base        principal
+21­26 sep.       operativa y el                                    Acceso y gestión
+                 contexto compartido.      HU-01 a HU-04;          básica de pacientes;
+Sprint 2                                   repositorio;            repositorio y
+27 sep.­3 oct.   Completar el              React/Django/Postgre    orquestador
+                 seguimiento               SQL; CI inicial;        preparados para
+Sprint 3         nutricional e integrar    documentación base;     acompañar el
+4­9 oct.         las capas.                configuración inicial   proyecto.
+                                           del contexto del
+Entrega          Completar funciones       Orquestador.            Flujo principal de
+10 oct.          secundarias, IA y                                 seguimiento
+                 estabilizar.              HU-05 a HU-10;          demostrable e
+                                           consultas,              integrado.
+                 Validar y presentar.      mediciones, historial,
+                                           evolución; uso activo   MVP probado y
+                                           del Orquestador para    preparado para
+                                           contratos               entrega.
+                                           React­Django­datos
+                                           y revisión de ramas.    Entrega académica
+                                                                   final.
+                                           HU-11 a HU-14; IA
+                                           de notas; resumen;
+                                           documentos;
+                                           auditoría; pruebas
+                                           E2E; seguridad;
+                                           consolidación del
+                                           Orquestador;
+                                           documentación y
+                                           demo.
+
+                                           Verificación final,
+                                           evidencias, manual,
+                                           documento,
+
+                                                                                                   7
+                               repositorio y
+                               demostración.
+
+         La fecha es fija; por ello, el alcance es la variable de ajuste. Si existe retraso, se
+conservarán primero autenticación, pacientes, consultas, mediciones, historial, comparación de
+evolución, integración React­Django, persistencia y pruebas críticas.
+
+7. Arquitectura y tecnologías
+
+GestNutri utilizará una arquitectura cliente-servidor. React implementará la interfaz;
+
+Django y Django REST Framework expondrán la API y concentrarán autenticación,
+
+autorización, validaciones y lógica de negocio; PostgreSQL almacenará la información. Las
+
+funciones de IA del producto se invocarán desde el backend para evitar exponer credenciales en
+
+el navegador.
+
+Capa                           Tecnología / responsabilidad
+Frontend                       React, JavaScript/JSX, HTML, CSS y Vite.
+Backend                        Python, Django y Django REST Framework.
+Datos                          PostgreSQL y migraciones de Django.
+Versionado                     Git y GitHub.
+CI ( Integración continua)     GitHub Actions.
+IA de desarrollo               Asistencia individual en cada computadora +
+                               Agente Orquestador global.
+IA del producto                Formalización controlada de notas mediante
+                               backend.
+
+         Flujo arquitectónico: Usuario  React  API REST Django/DRF  PostgreSQL.
+Cuando una función requiera IA: React  Django  servicio de IA  propuesta  Django 
+React  revisión del nutricionista. Los cálculos de evolución serán determinísticos y
+verificables.
+
+                                                                                                 8
+8. Desarrollo distribuido con Git y GitHub
+
+Cada integrante tendrá un clon local del mismo repositorio. main contendrá la versión
+
+estable; develop será la rama de integración; y las historias se desarrollarán en ramas
+
+feature/HU-XX-descripcion. También podrán utilizarse fix y docs.
+
+Paso                                             Procedimiento
+1. Sincronizar                                   Actualizar develop y revisar cambios
+                                                 recientes.
+2. Crear rama                                    Crear o actualizar la rama de la historia.
+3. Desarrollar                                   Programar y probar localmente, con IA de
+                                                 apoyo cuando resulte útil.
+4. Publicar                                      Commit descriptivo y push a GitHub.
+5. Revisar                                       Pull Request a develop, CI, revisión humana y
+                                                 observaciones del Orquestador.
+6. Integrar                                      Corregir, aprobar y fusionar; el resto del
+                                                 equipo vuelve a sincronizar.
+
+         GitHub será la fuente oficial del código y del estado compartido. El equipo no integrará
+el sistema enviando carpetas completas entre computadoras. Los commits utilizarán prefijos
+como feat, fix, test, docs, refactor y chore.
+
+9. Forma de trabajo con inteligencia artificial
+
+Cada integrante podrá utilizar IA desde su computadora sobre la tarea y rama que tenga
+
+asignadas. Esta asistencia local puede ayudar a comprender código, proponer implementaciones,
+
+crear pruebas, revisar errores o redactar documentación. No constituye un proyecto
+
+independiente y debe respetar las decisiones comunes almacenadas en el repositorio.
+
+Área               Uso de IA local                 Validación humana
+Frontend / Jilder
+                   Componentes, formularios,       Verificar experiencia,
+Backend / Genny    estados, consumo de API y       contrato de API y
+                   pruebas.                        funcionamiento real.
+
+                   Endpoints, serializers,         Verificar reglas, seguridad y
+                   servicios, permisos y pruebas.  compatibilidad.
+
+                                                                                                   9
+Datos / Diana        Modelos, relaciones,             Verificar integridad y efectos
+QA / Luisa           migraciones y consultas.         sobre API.
+
+                     Casos de prueba, CI, revisión    Confirmar cobertura crítica y
+                     y automatización.                confiabilidad.
+
+         Antes de aceptar una sugerencia, el autor debe comprenderla, revisar que respete la
+historia y arquitectura, ejecutar pruebas y confirmar que no modifique archivos fuera del alcance.
+La IA no recibirá secretos ni datos reales de pacientes. Cuando una tarea dependa de otra área, el
+equipo acordará primero el contrato compartido; la IA no deberá inventarlo.
+
+10. Agente Orquestador con contexto global
+
+El Agente Orquestador es distinto de la IA local de cada desarrollador. Su propósito es
+
+mantener una visión integral de GestNutri y ayudar a coordinar el trabajo que se publica desde
+
+las cuatro computadoras. GitHub conserva el código y el historial; el orquestador interpreta ese
+
+estado, relaciona cambios y formula recomendaciones.
+
+Tipo de contexto                            Contenido
+Contexto base
+                                            Alcance, Product Goal, arquitectura,
+Contexto del Sprint                         tecnologías, convenciones, seguridad y
+Contexto dinámico                           Definition of Done.
+
+                                            Sprint Goal, historias seleccionadas, criterios
+                                            de aceptación, tareas y dependencias.
+
+                                            Ramas, commits, Pull Requests, cambios de
+                                            API, migraciones, pruebas, Issues y
+                                            decisiones recientes.
+
+         Flujo operativo: cada desarrollador trabaja localmente con IA  publica su rama en
+GitHub  el Orquestador analiza repositorio, documentación, historias y Pull Requests 
+identifica dependencias, inconsistencias o impactos  emite recomendaciones  el responsable
+corrige y prueba  CI y revisión humana  Pull Request aprobado  integración en develop
+ actualización del contexto global.
+
+                                                                                                10
+         El orquestador complementará a Git detectando conflictos semánticos. Por ejemplo, si
+React espera phoneNumber y Django devuelve phone, Git puede fusionar ambos cambios sin
+conflicto textual, pero la aplicación fallará. El orquestador deberá advertir la incompatibilidad.
+También podrá detectar migraciones faltantes, pruebas no actualizadas, duplicación de trabajo o
+documentación obsoleta.
+
+         El agente puede sugerir ideas porque conoce el proyecto completo, pero no puede
+convertirlas por sí mismo en requisitos. Las propuestas de alcance deben pasar por el Product
+Owner; las decisiones de proceso corresponden al Scrum Team; y las decisiones técnicas
+importantes requieren revisión humana. El orquestador no aprobará su propio trabajo, no
+fusionará directamente a main, no eliminará cambios ajenos y no sustituirá al Scrum Master.
+
+11. Gestión de requisitos y cambios
+
+Los requisitos se administrarán como historias en el Product Backlog. Una solicitud
+
+nueva se registrará, se analizará por valor, esfuerzo, dependencias, riesgo e impacto sobre la
+
+fecha y será ordenada por el Product Owner. Los cambios que afecten arquitectura, contratos de
+
+API, datos o seguridad deberán documentarse antes de integrarse.
+
+ Estado del cambio                      Acción
+ Cambio pequeño dentro de una historia
+ Nueva necesidad                        Se aclara en criterios y se implementa dentro
+ Cambio de arquitectura/API/datos       del Sprint si no compromete el Sprint Goal.
+ Cambio que amenaza la fecha
+                                        Se crea una historia o Issue y vuelve al
+12. Gestión de calidad, pruebas y CI    Product Backlog.
+
+                                        Se documenta la decisión y se comunica a los
+                                        integrantes y al Orquestador.
+
+                                        El Product Owner reordena alcance; no se
+                                        introduce silenciosamente en el Sprint.
+
+La calidad se verificará durante cada Sprint. Ninguna historia podrá considerarse Done si
+
+incumple sus criterios, mantiene pruebas críticas fallidas o no supera las revisiones acordadas.
+
+                                                                                                  11
+Nivel                   Qué verifica            Responsable       Momento
+Unitarias                                       principal
+API / backend           Reglas, cálculos y      Autor del cambio  Durante desarrollo.
+Frontend                funciones aisladas.     Backend / Datos
+                        Serializers, permisos,  Frontend          Antes del PR.
+Integración             endpoints y errores.
+E2E                     Componentes,            Equipo            Antes del PR.
+IA                      estados y               QA + equipo
+                        validaciones.           QA + autor        PR / cierre de
+                        Compatibilidad                            historia.
+                        React­API­datos.                          Sprint 3 y regresiones
+                        Flujos principales del                    críticas.
+                        usuario.                                  Sprint 3.
+                        Que la formalización
+                        no agregue hechos
+                        ausentes.
+
+         HU-09 deberá probar aumento, disminución, igualdad, ausencia de consulta previa y
+datos nulos o inválidos. GitHub Actions ejecutará verificaciones automáticas en Pull Requests.
+Un CI exitoso será requisito de integración, pero no reemplazará la revisión humana.
+
+13. Seguridad, riesgos y comunicación
+
+Django controlará permisos y validaciones del servidor. Contraseñas y secretos se
+
+manejarán con los mecanismos seguros del framework y variables de entorno; no se almacenarán
+
+claves en Git. En desarrollo se utilizarán datos ficticios o anonimizados. La IA del producto
+
+deberá ser degradable: si el servicio no está disponible, las notas manuales seguirán funcionando.
+
+Riesgo         Prob.    Impacto                 Responsable       Respuesta
+                        Alto                    Product Owner +
+Retraso antes del Alta                          equipo            Proteger núcleo
+10 de octubre           Alto                                      del MVP y
+                                                Developers        reordenar
+Conflictos entre Media                                            funciones
+ramas                                                             medias.
+
+                                                                  Ramas
+                                                                  pequeñas,
+                                                                  sincronización,
+
+                                                                                                12
+Código            Media               Alto   Autor del       PR y
+incorrecto        Media               Alto   cambio          Orquestador.
+generado con IA                       Medio  Frontend +
+                                      Alto   Backend         Comprensión,
+Incompatibilidad                      Medio  Scrum Team      pruebas, revisión
+React­Django                                                 cruzada y CI.
+                                             Todo el equipo
+Pérdida de        Media                                      Contrato de API
+contexto                                     Backend / QA    y revisión
+                                                             semántica.
+Fuga de           Baja
+                                                             Documentación
+información a IA                                             versionada y
+                                                             GitHub como
+Falla del servicio Media                                     fuente oficial.
+de IA
+                                                             Datos ficticios,
+                                                             minimización y
+                                                             no compartir
+                                                             secretos.
+
+                                                             Mantener flujo
+                                                             manual
+                                                             disponible.
+
+         La Daily Scrum será el principal punto de coordinación operativa. Issues y Pull Requests
+registrarán trabajo y decisiones técnicas. El Scrum Master dará seguimiento a impedimentos y al
+uso correcto de Scrum; el Product Owner mantendrá el orden del Product Backlog; y los
+Developers adaptarán diariamente el plan para alcanzar el Sprint Goal.
+
+14. Seguimiento y métricas                   Uso
+                                             Observar cumplimiento del Sprint sin medir
+ Indicador                                   productividad individual.
+ Historias terminadas / planificadas         Controlar calidad real del Increment.
+                                             Detectar cuellos de botella de revisión e
+ % de historias que cumplen DoD              integración.
+ Pull Requests pendientes                    Identificar inestabilidad técnica.
+                                             Decidir si el Increment está listo para
+ Pruebas o CI fallidos                       demostración o entrega.
+ Defectos abiertos críticos
+
+                                                                                         13
+         Las métricas se revisarán durante el Sprint y especialmente en Review y Retrospective.
+La velocidad, si se utiliza, servirá únicamente como referencia de planificación del equipo y no
+como evaluación individual.
+
+15. Entregables y criterios de aceptación
+         Los entregables serán: repositorio GitHub con historial; frontend React; backend
+
+Django/DRF; modelo y migraciones PostgreSQL; Product Backlog y evidencia de Sprints;
+pruebas y CI; documentación de API; reglas y descripción del Agente Orquestador; guía de
+instalación; manual breve; plan de gestión; MVP demostrable y presentación final.
+
+         El MVP será aceptado cuando un usuario autorizado pueda iniciar sesión, administrar
+pacientes, registrar consultas y mediciones, consultar historial, visualizar correctamente la
+evolución, guardar notas sin depender de IA y utilizar opcionalmente la formalización con
+revisión humana. También deberá demostrarse que React consume la API Django, los datos
+persisten correctamente y el trabajo distribuido fue integrado mediante GitHub, Pull Requests, CI
+y revisión.
+
+16. Conclusiones
+         El plan organiza GestNutri alrededor de una fecha fija, un único producto y un equipo
+
+distribuido. Scrum proporciona objetivos, inspección y adaptación; Git y GitHub permiten
+integrar el trabajo de cuatro computadoras; la IA local apoya a cada desarrollador; y el Agente
+Orquestador aporta contexto global para detectar dependencias e inconsistencias desde el primer
+Sprint. La combinación de Product Goal, backlog trazable, pruebas, CI, gestión de riesgos y
+revisión humana permite mantener el proyecto controlado sin convertir el plan en documentación
+innecesariamente extensa.
+
+                                                                                                                             14
+Referencias
+Autio, C., Schwartz, R., Dunietz, J., Jain, S., Stanley, M., Tabassi, E., Hall, P., & Roberts, K.
+
+         (2024). Artificial intelligence risk management framework: Generative artificial
+         intelligence profile (NIST AI 600-1). National Institute of Standards and Technology.
+         https://doi.org/10.6028/NIST.AI.600-1
+Django REST Framework. (2026). Quickstart.
+         https://www.django-rest-framework.org/tutorial/quickstart/
+Django Software Foundation. (2026). Django documentation (Version 5.2).
+         https://docs.djangoproject.com/en/5.2/
+GitHub. (2026). Pull requests documentation. GitHub Docs.
+         https://docs.github.com/en/pull-requests
+React Team. (2026). Quick start. React. https://react.dev/learn
+Schwaber, K., & Sutherland, J. (2020). The Scrum guide.
+         https://scrumguides.org/scrum-guide.html
+
+                                                                                                                             15
+
