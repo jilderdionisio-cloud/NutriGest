@@ -26,9 +26,13 @@ TEMPLATES = [{"BACKEND": "django.template.backends.django.DjangoTemplates", "DIR
               "OPTIONS": {"context_processors": ["django.template.context_processors.request", "django.contrib.auth.context_processors.auth", "django.contrib.messages.context_processors.messages"]}}]
 WSGI_APPLICATION = "config.wsgi.application"
 
-DATABASES = {"default": {"ENGINE": "django.db.backends.postgresql", "NAME": os.getenv("POSTGRES_DB", "gestnutri"),
-    "USER": os.getenv("POSTGRES_USER", "gestnutri"), "PASSWORD": os.getenv("POSTGRES_PASSWORD", ""),
-    "HOST": os.getenv("POSTGRES_HOST", "localhost"), "PORT": os.getenv("POSTGRES_PORT", "5432")}}
+if os.getenv("DJANGO_TEST_USE_SQLITE", "").lower() == "true":
+    # Solo para una suite local aislada; el entorno habitual usa PostgreSQL.
+    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "test.sqlite3"}}
+else:
+    DATABASES = {"default": {"ENGINE": "django.db.backends.postgresql", "NAME": os.getenv("POSTGRES_DB", "gestnutri"),
+        "USER": os.getenv("POSTGRES_USER", "gestnutri"), "PASSWORD": os.getenv("POSTGRES_PASSWORD", ""),
+        "HOST": os.getenv("POSTGRES_HOST", "localhost"), "PORT": os.getenv("POSTGRES_PORT", "5432")}}
 
 AUTH_PASSWORD_VALIDATORS = []
 LANGUAGE_CODE = "es-mx"
