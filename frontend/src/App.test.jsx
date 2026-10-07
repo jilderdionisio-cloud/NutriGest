@@ -1,0 +1,53 @@
+import { expect, test } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router-dom';
+import App from './App';
+async function login(user) {
+  render(<MemoryRouter initialEntries={['/patients']}><App /></MemoryRouter>);
+  await user.type(await screen.findByLabelText('Usuario'), 'demo');
+  await user.type(screen.getByLabelText('Contraseña de demostración'), 'ficticia');
+  await user.click(screen.getByRole('button', { name: 'Entrar a la demostración' }));
+  expect(screen.getByRole('button', { name: 'Entrando…' })).toBeDisabled();
+  await screen.findByRole('link', { name: 'Ana López' });
+}
+test('recorre acceso, búsqueda, alta, error de guardado, expediente, edición y salida', async () => {
+  const user = userEvent.setup(); await login(user);
+  await user.type(screen.getByLabelText('Buscar pacientes'), 'zzzz');
+  await screen.findByRole('heading', { name: 'Sin coincidencias' });
+  await user.click(screen.getByRole('button', { name: 'Limpiar búsqueda' }));
+  await screen.findByRole('link', { name: 'Ana López' });
+  await user.click(screen.getByRole('link', { name: '+ Nuevo paciente' }));
+  await user.type(screen.getByLabelText('Nombre *'), 'Elena');
+  await user.type(screen.getByLabelText('Apellidos *'), 'Demostración');
+  await user.click(screen.getByText('Probar estados de la demostración'));
+  await user.selectOptions(screen.getByLabelText('Resultado simulado'), 'error');
+  await user.click(screen.getByRole('button', { name: 'Guardar paciente' }));
+  await screen.findByRole('alert');
+  expect(screen.getByLabelText('Nombre *')).toHaveValue('Elena');
+  await user.selectOptions(screen.getByLabelText('Resultado simulado'), 'normal');
+  await user.click(screen.getByRole('button', { name: 'Guardar paciente' }));
+  await screen.findByRole('heading', { name: 'Elena Demostración' });
+  expect(screen.getByText('Paciente creado en la demostración.')).toBeInTheDocument();
+  await user.click(screen.getByRole('link', { name: 'Editar paciente' }));
+  await waitFor(() => expect(screen.getByLabelText('Nombre *')).toHaveValue('Elena'));
+  await user.clear(screen.getByLabelText('Nombre *')); await user.type(screen.getByLabelText('Nombre *'), 'Elena editada');
+  await user.click(screen.getByRole('button', { name: 'Guardar paciente' }));
+  await screen.findByRole('heading', { name: 'Elena editada Demostración' });
+  await user.click(screen.getByRole('button', { name: 'Salir' }));
+  await screen.findByRole('heading', { name: 'Bienvenida a GestNutri' });
+});
+test('lista muestra vacío y error recuperable; expediente muestra no encontrado', async () => {
+  const user = userEvent.setup(); await login(user);
+  await user.click(screen.getByText('Probar estados de la demostración'));
+  await user.selectOptions(screen.getByLabelText('Resultado simulado'), 'empty');
+  await screen.findByRole('heading', { name: 'Aún no hay pacientes' });
+  await user.selectOptions(screen.getByLabelText('Resultado simulado'), 'error');
+  await screen.findByRole('alert');
+  await user.click(screen.getByRole('button', { name: 'Reintentar' }));
+  await user.click(await screen.findByRole('link', { name: 'Ana López' }));
+  await screen.findByRole('heading', { name: 'Ana López' });
+  await user.click(screen.getByText('Probar estados de la demostración'));
+  await user.selectOptions(screen.getByLabelText('Resultado simulado'), 'missing');
+  expect(await screen.findByRole('alert')).toHaveTextContent('Paciente no encontrado');
+});
